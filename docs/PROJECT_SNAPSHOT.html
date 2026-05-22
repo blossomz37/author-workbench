@@ -310,6 +310,65 @@
       grid-column: 1 / -1;
     }
 
+    details.section {
+      padding: 0;
+    }
+
+    details.section > summary {
+      align-items: center;
+      cursor: pointer;
+      display: flex;
+      font-size: 1.12rem;
+      font-weight: 850;
+      gap: 12px;
+      justify-content: space-between;
+      letter-spacing: 0;
+      list-style: none;
+      min-height: 62px;
+      padding: 18px 20px;
+    }
+
+    details.section > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.section > summary::after {
+      align-items: center;
+      background: var(--gold-soft);
+      border: 1px solid rgba(213, 150, 44, 0.28);
+      border-radius: 999px;
+      color: #6e4b08;
+      content: "+";
+      display: inline-flex;
+      flex: 0 0 auto;
+      font-size: 1rem;
+      font-weight: 900;
+      height: 26px;
+      justify-content: center;
+      width: 26px;
+    }
+
+    details.section[open] > summary {
+      border-bottom: 1px solid var(--line);
+    }
+
+    details.section[open] > summary::after {
+      content: "-";
+    }
+
+    details.section > summary + * {
+      margin-top: 0;
+    }
+
+    details.section > :not(summary) {
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
+    details.section > :last-child {
+      margin-bottom: 20px;
+    }
+
     h2 {
       font-size: 1.12rem;
       letter-spacing: 0;
@@ -415,34 +474,22 @@
       padding: 15px;
     }
 
-    .doc-links {
-      display: grid;
-      gap: 10px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .doc-links a {
-      background: #fffaf4;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      color: var(--ink);
-      font-weight: 800;
-      min-width: 0;
-      padding: 11px 12px;
-      text-decoration: none;
-    }
-
     .inspiration {
+      display: block;
+    }
+
+    .inspiration[open] {
       display: grid;
-      gap: 18px;
       grid-template-columns: minmax(0, 0.75fr) minmax(320px, 1.25fr);
       align-items: stretch;
+      column-gap: 18px;
     }
 
     .inspiration-copy {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      margin-top: 20px;
     }
 
     .inspiration-frame {
@@ -450,6 +497,7 @@
       border: 1px solid var(--line);
       border-radius: 8px;
       box-shadow: 0 12px 32px rgba(63, 45, 31, 0.09);
+      margin-top: 20px;
       min-height: 420px;
       overflow: hidden;
     }
@@ -513,10 +561,6 @@
       .section.span-2,
       .section.full {
         grid-column: auto;
-      }
-
-      .doc-links {
-        grid-template-columns: 1fr;
       }
 
       .inspiration {
@@ -617,8 +661,8 @@
     </section>
 
     <section class="section-grid" aria-label="Project details">
-      <article class="section span-2">
-        <h2>Current Shape</h2>
+      <details class="section span-2" open>
+        <summary>Current Shape</summary>
         <div class="chips" aria-label="Technology stack">
           <span class="chip teal">npm workspaces</span>
           <span class="chip blue">Express + TypeScript</span>
@@ -631,17 +675,17 @@
         <p class="muted" style="margin-top: 14px;">
           Express runs on <code>localhost:3777</code>. Vite runs on <code>localhost:5173</code> and proxies <code>/api/*</code> to the server.
         </p>
-      </article>
+      </details>
 
-      <article class="section">
-        <h2>One-Line Status</h2>
+      <details class="section">
+        <summary>One-Line Status</summary>
         <p>
           The core V1 proof is working: load files, assemble prompts, stream output, pause for review, resume to audit, and save the evidence locally.
         </p>
-      </article>
+      </details>
 
-      <article class="section span-2">
-        <h2>What Is Proven</h2>
+      <details class="section span-2">
+        <summary>What Is Proven</summary>
         <ul class="proof-list">
           <li><span class="check">OK</span><span>Browser streaming works with Server-Sent Events.</span></li>
           <li><span class="check">OK</span><span>Local project files can be read into prompt context.</span></li>
@@ -649,19 +693,19 @@
           <li><span class="check">OK</span><span>Run folders preserve prompts, streamed events, drafts, approvals, audits, and outputs.</span></li>
           <li><span class="check">OK</span><span>Mock mode can test the workflow without an API key.</span></li>
         </ul>
-      </article>
+      </details>
 
-      <article class="section">
-        <h2>Fixtures</h2>
+      <details class="section">
+        <summary>Fixtures</summary>
         <ul>
           <li><code>sample-project/</code> is the small "The Cabin" test project.</li>
           <li><code>projects/dead-acre/</code> is the heavier real-world fixture.</li>
           <li><code>spike/streaming-poc/</code> is archived proof code.</li>
         </ul>
-      </article>
+      </details>
 
-      <article class="section full">
-        <h2>What Changed Recently</h2>
+      <details class="section full">
+        <summary>What Changed Recently</summary>
         <div class="timeline">
           <div class="timeline-item">
             <strong>Action layer added</strong>
@@ -680,11 +724,11 @@
             <span class="muted">For now, each project's actions are declared in <code>project.yaml</code>.</span>
           </div>
         </div>
-      </article>
+      </details>
 
-      <article class="section full inspiration">
+      <details class="section full inspiration">
+        <summary>Project Inspiration</summary>
         <div class="inspiration-copy">
-          <h2>Project Inspiration</h2>
           <p>
             Author Workbench grows out of Elizabeth Ann West's Novel Machine presentation: a writer-first vision for turning AI workflows into practical, inspectable author systems.
           </p>
@@ -709,10 +753,10 @@
             referrerpolicy="no-referrer-when-downgrade">
           </iframe>
         </div>
-      </article>
+      </details>
 
-      <article class="section span-2">
-        <h2>Support Skills In This Workspace</h2>
+      <details class="section span-2">
+        <summary>Support Skills In This Workspace</summary>
         <ul>
           <li><code>specforge</code>: Turns fuzzy app or workflow ideas into evidence-backed build specs.</li>
           <li><code>skill-to-app-wizard</code>: WIP method for converting a readable agent skill into a testable app action.</li>
@@ -723,10 +767,10 @@
         <p class="muted" style="margin-top: 12px;">
           Note: <code>skill-to-app-wizard</code> is still under <code>.agents/wip-skills/</code>; the others are under <code>.agents/skills/</code>.
         </p>
-      </article>
+      </details>
 
-      <article class="section">
-        <h2>Design Bias</h2>
+      <details class="section">
+        <summary>Design Bias</summary>
         <ul>
           <li>Local files as truth.</li>
           <li>Visible prompt assembly.</li>
@@ -734,10 +778,10 @@
           <li>Mock-first testing.</li>
           <li>Explicit action wrappers for skills.</li>
         </ul>
-      </article>
+      </details>
 
-      <article class="section">
-        <h2>Still Open</h2>
+      <details class="section">
+        <summary>Still Open</summary>
         <ul>
           <li>Anthropic provider adapter.</li>
           <li>Large dossier and context-window limits.</li>
@@ -745,20 +789,20 @@
           <li><code>project.yaml</code> vs <code>actions.yaml</code>.</li>
           <li>Which real skills to wrap next.</li>
         </ul>
-      </article>
+      </details>
 
-      <article class="section">
-        <h2>How To Run</h2>
+      <details class="section">
+        <summary>How To Run</summary>
         <pre class="terminal"><code>npm install
 npm run dev:server
 npm run dev:ui</code></pre>
         <p class="muted" style="margin-top: 12px;">
           Then open <code>http://localhost:5173/</code>. Mock mode works without an API key.
         </p>
-      </article>
+      </details>
 
-      <article class="section span-2">
-        <h2>Private Source Notes</h2>
+      <details class="section span-2">
+        <summary>Private Source Notes</summary>
         <p class="muted">
           Selected context from the private working README and agent memory, included here as short notes instead of publishing those files.
         </p>
@@ -776,17 +820,8 @@ npm run dev:ui</code></pre>
             <span class="muted">Only this GitHub Pages snapshot is public right now; the working app source and private notes remain outside this repo.</span>
           </div>
         </div>
-      </article>
+      </details>
 
-      <article class="section">
-        <h2>Useful Links</h2>
-        <div class="doc-links">
-          <a href="PROJECT_SNAPSHOT.md">Markdown overview</a>
-          <a href="PROJECT_SNAPSHOT.html">HTML snapshot</a>
-          <a href="https://github.com/blossomz37/author-workbench">GitHub repo</a>
-          <a href="https://blossomz37.github.io/author-workbench/">GitHub Pages URL</a>
-        </div>
-      </article>
     </section>
 
     <p class="footer">
