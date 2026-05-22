@@ -1,0 +1,686 @@
+<!doctype html>
+<!--
+  File: PROJECT_SNAPSHOT.html
+  Description: Friendly HTML snapshot for collaborators comparing parallel novel-builder experiments.
+  Version: 0.1.0
+  Created: 2026-05-22
+  Modified: 2026-05-22
+  Author: Carlo / Codex
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Author Workbench Project Snapshot</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #27213a;
+      --muted: #6c667d;
+      --paper: #fffaf2;
+      --panel: #ffffff;
+      --panel-soft: #fff3df;
+      --line: #ead7bf;
+      --teal: #247c72;
+      --teal-soft: #dbf1ec;
+      --rose: #d95d6a;
+      --rose-soft: #ffe5e8;
+      --gold: #d5962c;
+      --gold-soft: #fff0cf;
+      --blue: #3b6ea8;
+      --blue-soft: #e4effb;
+      --shadow: 0 18px 55px rgba(63, 45, 31, 0.13);
+      --radius: 8px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(234, 215, 191, 0.35) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(234, 215, 191, 0.35) 1px, transparent 1px),
+        var(--paper);
+      background-size: 26px 26px;
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration-color: rgba(59, 110, 168, 0.35);
+      text-underline-offset: 3px;
+    }
+
+    code {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff7ec;
+      color: #594126;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+      padding: 0.08rem 0.32rem;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 44px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(290px, 0.9fr);
+      gap: 24px;
+      align-items: stretch;
+      min-height: 520px;
+    }
+
+    .hero-copy {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      justify-content: center;
+      padding: 44px 0;
+    }
+
+    .eyebrow {
+      align-items: center;
+      color: var(--teal);
+      display: inline-flex;
+      font-size: 0.78rem;
+      font-weight: 800;
+      gap: 8px;
+      letter-spacing: 0;
+      margin: 0 0 16px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      background: var(--teal);
+      border-radius: 999px;
+      content: "";
+      height: 8px;
+      width: 8px;
+    }
+
+    h1 {
+      font-size: clamp(2.45rem, 7vw, 5.4rem);
+      letter-spacing: 0;
+      line-height: 0.95;
+      margin: 0;
+      max-width: 10ch;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2.4vw, 1.28rem);
+      margin: 22px 0 0;
+      max-width: 670px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .button {
+      align-items: center;
+      background: var(--ink);
+      border: 1px solid var(--ink);
+      border-radius: 7px;
+      color: #fff;
+      display: inline-flex;
+      font-weight: 800;
+      min-height: 42px;
+      padding: 0 15px;
+      text-decoration: none;
+    }
+
+    .button.secondary {
+      background: #fff;
+      border-color: var(--line);
+      color: var(--ink);
+    }
+
+    .workshop-visual {
+      align-self: center;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      min-height: 430px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .workshop-visual::before {
+      background:
+        radial-gradient(circle at 12px 12px, rgba(36, 124, 114, 0.16) 2px, transparent 2.5px);
+      background-size: 24px 24px;
+      content: "";
+      inset: 0;
+      opacity: 0.75;
+      position: absolute;
+    }
+
+    .visual-topbar {
+      align-items: center;
+      background: #f9e8d3;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      gap: 8px;
+      height: 46px;
+      padding: 0 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .dot {
+      border-radius: 50%;
+      display: block;
+      height: 10px;
+      width: 10px;
+    }
+
+    .dot.rose { background: var(--rose); }
+    .dot.gold { background: var(--gold); }
+    .dot.teal { background: var(--teal); }
+
+    .visual-board {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      padding: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .mini-card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      min-height: 112px;
+      padding: 14px;
+      position: relative;
+    }
+
+    .mini-card.wide {
+      grid-column: 1 / -1;
+    }
+
+    .mini-label {
+      color: var(--muted);
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .mini-title {
+      display: block;
+      font-size: 1.05rem;
+      font-weight: 850;
+      line-height: 1.2;
+    }
+
+    .mini-lines {
+      display: grid;
+      gap: 7px;
+      margin-top: 14px;
+    }
+
+    .mini-lines span {
+      background: #efe4d3;
+      border-radius: 999px;
+      height: 8px;
+      width: 100%;
+    }
+
+    .mini-lines span:nth-child(2) { width: 76%; }
+    .mini-lines span:nth-child(3) { width: 54%; }
+
+    .flow {
+      align-items: center;
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      min-width: 0;
+    }
+
+    .flow span {
+      background: var(--teal-soft);
+      border: 1px solid rgba(36, 124, 114, 0.22);
+      border-radius: 999px;
+      color: #14564f;
+      flex: 1 1 0;
+      font-size: 0.78rem;
+      font-weight: 800;
+      min-width: 0;
+      padding: 7px 9px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .flow b {
+      color: var(--gold);
+      flex: 0 0 auto;
+    }
+
+    .snapshot-date {
+      background: var(--rose-soft);
+      border: 1px solid rgba(217, 93, 106, 0.25);
+      border-radius: 999px;
+      color: #8f303b;
+      display: inline-flex;
+      font-size: 0.82rem;
+      font-weight: 850;
+      padding: 6px 11px;
+      width: fit-content;
+    }
+
+    .section-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 12px;
+    }
+
+    .section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(63, 45, 31, 0.07);
+      padding: 20px;
+    }
+
+    .section.span-2 {
+      grid-column: span 2;
+    }
+
+    .section.full {
+      grid-column: 1 / -1;
+    }
+
+    h2 {
+      font-size: 1.12rem;
+      letter-spacing: 0;
+      margin: 0 0 12px;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+
+    li + li {
+      margin-top: 8px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      display: inline-flex;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 6px 10px;
+    }
+
+    .chip.teal { background: var(--teal-soft); color: #14564f; }
+    .chip.rose { background: var(--rose-soft); color: #8f303b; }
+    .chip.gold { background: var(--gold-soft); color: #6e4b08; }
+    .chip.blue { background: var(--blue-soft); color: #224c7a; }
+
+    .proof-list {
+      display: grid;
+      gap: 10px;
+      list-style: none;
+      padding: 0;
+    }
+
+    .proof-list li {
+      align-items: flex-start;
+      background: #fffaf4;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 22px 1fr;
+      margin: 0;
+      padding: 10px;
+    }
+
+    .check {
+      align-items: center;
+      background: var(--teal);
+      border-radius: 50%;
+      color: #fff;
+      display: inline-flex;
+      font-size: 0.75rem;
+      font-weight: 900;
+      height: 22px;
+      justify-content: center;
+      width: 22px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .timeline-item {
+      border-left: 4px solid var(--gold);
+      padding: 2px 0 2px 12px;
+    }
+
+    .timeline-item strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .terminal {
+      background: #27213a;
+      border-radius: 8px;
+      color: #fff7e8;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      margin: 0;
+      overflow-x: auto;
+      padding: 15px;
+    }
+
+    .doc-links {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .doc-links a {
+      background: #fffaf4;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      font-weight: 800;
+      min-width: 0;
+      padding: 11px 12px;
+      text-decoration: none;
+    }
+
+    .footer {
+      color: var(--muted);
+      font-size: 0.9rem;
+      padding: 22px 0 0;
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: 0;
+      }
+
+      .hero-copy {
+        padding: 28px 0 0;
+      }
+
+      h1 {
+        max-width: none;
+      }
+
+      .section-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section.span-2,
+      .section.full {
+        grid-column: auto;
+      }
+
+      .doc-links {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .page {
+        width: min(100% - 20px, 1120px);
+        padding-top: 16px;
+      }
+
+      .visual-board {
+        grid-template-columns: 1fr;
+        padding: 14px;
+      }
+
+      .mini-card.wide {
+        grid-column: auto;
+      }
+
+      .flow {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .flow b {
+        display: none;
+      }
+
+      .section {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-labelledby="snapshot-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Project check-in for parallel builders</p>
+        <h1 id="snapshot-title">Author Workbench</h1>
+        <p class="subtitle">
+          A local-first author workflow app for drafting scenes, pausing for author review, auditing approved text, and saving every run as visible local evidence.
+        </p>
+        <div class="hero-actions" aria-label="Primary links">
+          <a class="button" href="README.md">Read the overview</a>
+          <a class="button secondary" href="PROJECT_SNAPSHOT.md">Plain markdown version</a>
+        </div>
+      </div>
+
+      <aside class="workshop-visual" aria-label="Author Workbench workflow preview">
+        <div class="visual-topbar">
+          <span class="dot rose"></span>
+          <span class="dot gold"></span>
+          <span class="dot teal"></span>
+        </div>
+        <div class="visual-board">
+          <div class="mini-card">
+            <span class="mini-label">Project files</span>
+            <span class="mini-title">project.yaml + Markdown context</span>
+            <div class="mini-lines"><span></span><span></span><span></span></div>
+          </div>
+          <div class="mini-card">
+            <span class="mini-label">Prompt layer</span>
+            <span class="mini-title">Handlebars templates</span>
+            <div class="mini-lines"><span></span><span></span><span></span></div>
+          </div>
+          <div class="mini-card wide">
+            <span class="snapshot-date">Snapshot: 2026-05-22</span>
+            <div class="flow" aria-label="Draft review audit flow">
+              <span>Draft</span>
+              <b>to</b>
+              <span>Review</span>
+              <b>to</b>
+              <span>Audit</span>
+            </div>
+          </div>
+          <div class="mini-card">
+            <span class="mini-label">Runtime</span>
+            <span class="mini-title">SSE streams over Express</span>
+            <div class="mini-lines"><span></span><span></span><span></span></div>
+          </div>
+          <div class="mini-card">
+            <span class="mini-label">Evidence</span>
+            <span class="mini-title">Local timestamped runs</span>
+            <div class="mini-lines"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section-grid" aria-label="Project details">
+      <article class="section span-2">
+        <h2>Current Shape</h2>
+        <div class="chips" aria-label="Technology stack">
+          <span class="chip teal">npm workspaces</span>
+          <span class="chip blue">Express + TypeScript</span>
+          <span class="chip rose">Svelte 5 + Vite</span>
+          <span class="chip gold">Server-Sent Events</span>
+          <span class="chip teal">Handlebars prompts</span>
+          <span class="chip blue">Mock + OpenAI</span>
+          <span class="chip rose">Local run folders</span>
+        </div>
+        <p class="muted" style="margin-top: 14px;">
+          Express runs on <code>localhost:3777</code>. Vite runs on <code>localhost:5173</code> and proxies <code>/api/*</code> to the server.
+        </p>
+      </article>
+
+      <article class="section">
+        <h2>One-Line Status</h2>
+        <p>
+          The core V1 proof is working: load files, assemble prompts, stream output, pause for review, resume to audit, and save the evidence locally.
+        </p>
+      </article>
+
+      <article class="section span-2">
+        <h2>What Is Proven</h2>
+        <ul class="proof-list">
+          <li><span class="check">OK</span><span>Browser streaming works with Server-Sent Events.</span></li>
+          <li><span class="check">OK</span><span>Local project files can be read into prompt context.</span></li>
+          <li><span class="check">OK</span><span>Handlebars templates assemble draft, audit, and skill-backed prompts.</span></li>
+          <li><span class="check">OK</span><span>Run folders preserve prompts, streamed events, drafts, approvals, audits, and outputs.</span></li>
+          <li><span class="check">OK</span><span>Mock mode can test the workflow without an API key.</span></li>
+        </ul>
+      </article>
+
+      <article class="section">
+        <h2>Fixtures</h2>
+        <ul>
+          <li><code>sample-project/</code> is the small "The Cabin" test project.</li>
+          <li><code>projects/dead-acre/</code> is the heavier real-world fixture.</li>
+          <li><code>spike/streaming-poc/</code> is archived proof code.</li>
+        </ul>
+      </article>
+
+      <article class="section full">
+        <h2>What Changed Recently</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <strong>Action layer added</strong>
+            <span class="muted">The app moved beyond one hardcoded draft/audit demo.</span>
+          </div>
+          <div class="timeline-item">
+            <strong>Runner types now exist</strong>
+            <span class="muted"><code>draft-and-audit</code>, <code>single-step</code>, and <code>skill-template</code>.</span>
+          </div>
+          <div class="timeline-item">
+            <strong>Strict schema validation</strong>
+            <span class="muted">Malformed action metadata fails early instead of breaking during preview or runtime.</span>
+          </div>
+          <div class="timeline-item">
+            <strong>Action metadata lives in project files</strong>
+            <span class="muted">For now, each project's actions are declared in <code>project.yaml</code>.</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="section span-2">
+        <h2>Support Skills In This Workspace</h2>
+        <ul>
+          <li><code>specforge</code>: Turns fuzzy app or workflow ideas into evidence-backed build specs.</li>
+          <li><code>skill-to-app-wizard</code>: WIP method for converting a readable agent skill into a testable app action.</li>
+          <li><code>express-svelte-monorepo</code>: Scaffold pattern for the current full-stack shape.</li>
+          <li><code>sse-streaming</code>: Reusable SSE event and streaming patterns for Express and browser clients.</li>
+          <li><code>svelte5-rune-store</code>: Shared Svelte 5 state pattern using rune-backed getter/setter functions.</li>
+        </ul>
+        <p class="muted" style="margin-top: 12px;">
+          Note: <code>skill-to-app-wizard</code> is still under <code>.agents/wip-skills/</code>; the others are under <code>.agents/skills/</code>.
+        </p>
+      </article>
+
+      <article class="section">
+        <h2>Design Bias</h2>
+        <ul>
+          <li>Local files as truth.</li>
+          <li>Visible prompt assembly.</li>
+          <li>Saved evidence over hidden runtime state.</li>
+          <li>Mock-first testing.</li>
+          <li>Explicit action wrappers for skills.</li>
+        </ul>
+      </article>
+
+      <article class="section">
+        <h2>Still Open</h2>
+        <ul>
+          <li>Anthropic provider adapter.</li>
+          <li>Large dossier and context-window limits.</li>
+          <li>Multiple approval gates.</li>
+          <li><code>project.yaml</code> vs <code>actions.yaml</code>.</li>
+          <li>Which real skills to wrap next.</li>
+        </ul>
+      </article>
+
+      <article class="section">
+        <h2>How To Run</h2>
+        <pre class="terminal"><code>npm install
+npm run dev:server
+npm run dev:ui</code></pre>
+        <p class="muted" style="margin-top: 12px;">
+          Then open <code>http://localhost:5173/</code>. Mock mode works without an API key.
+        </p>
+      </article>
+
+      <article class="section">
+        <h2>Useful Docs</h2>
+        <div class="doc-links">
+          <a href="README.md">README.md</a>
+          <a href="memory.md">memory.md</a>
+          <a href="docs/product/v1-build-spec.md">V1 build spec</a>
+          <a href="docs/product/v1-living-spec.md">Living spec</a>
+          <a href="docs/product/streaming-lab-report.md">Streaming lab report</a>
+          <a href="docs/product/app-ready-skill-standard.md">App-ready skill standard</a>
+        </div>
+      </article>
+    </section>
+
+    <p class="footer">
+      Built as a friendly repo check-in for people comparing parallel author-workflow experiments.
+    </p>
+  </main>
+</body>
+</html>
