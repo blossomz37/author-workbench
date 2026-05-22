@@ -432,6 +432,59 @@
       text-decoration: none;
     }
 
+    .inspiration {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: minmax(0, 0.75fr) minmax(320px, 1.25fr);
+      align-items: stretch;
+    }
+
+    .inspiration-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .inspiration-frame {
+      background: #fffaf4;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 12px 32px rgba(63, 45, 31, 0.09);
+      min-height: 420px;
+      overflow: hidden;
+    }
+
+    .inspiration-bar {
+      align-items: center;
+      background: #f9e8d3;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      gap: 8px;
+      height: 38px;
+      padding: 0 12px;
+    }
+
+    .inspiration-url {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(234, 215, 191, 0.9);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-left: 4px;
+      min-width: 0;
+      overflow: hidden;
+      padding: 5px 10px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .inspiration-frame iframe {
+      border: 0;
+      display: block;
+      height: 420px;
+      width: 100%;
+    }
+
     .footer {
       color: var(--muted);
       font-size: 0.9rem;
@@ -465,6 +518,10 @@
       .doc-links {
         grid-template-columns: 1fr;
       }
+
+      .inspiration {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 540px) {
@@ -493,6 +550,12 @@
 
       .section {
         padding: 16px;
+      }
+
+      .inspiration-frame,
+      .inspiration-frame iframe {
+        min-height: 360px;
+        height: 360px;
       }
     }
   </style>
@@ -616,6 +679,35 @@
             <strong>Action metadata lives in project files</strong>
             <span class="muted">For now, each project's actions are declared in <code>project.yaml</code>.</span>
           </div>
+        </div>
+      </article>
+
+      <article class="section full inspiration">
+        <div class="inspiration-copy">
+          <h2>Project Inspiration</h2>
+          <p>
+            Author Workbench grows out of Elizabeth Ann West's Novel Machine presentation: a writer-first vision for turning AI workflows into practical, inspectable author systems.
+          </p>
+          <p class="muted">
+            This embedded preview is included as a source-of-inspiration card, not as a dependency. If the frame does not load, open the original presentation directly.
+          </p>
+          <p style="margin-top: 14px;">
+            <a class="button secondary" href="https://ai.elizabethannwest.com/projects/novel-machine-presentation.html">Open inspiration page</a>
+          </p>
+        </div>
+        <div class="inspiration-frame" aria-label="Embedded Novel Machine presentation">
+          <div class="inspiration-bar">
+            <span class="dot rose"></span>
+            <span class="dot gold"></span>
+            <span class="dot teal"></span>
+            <span class="inspiration-url">ai.elizabethannwest.com/projects/novel-machine-presentation.html</span>
+          </div>
+          <iframe
+            title="Novel Machine presentation by Elizabeth Ann West"
+            src="https://ai.elizabethannwest.com/projects/novel-machine-presentation.html"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
         </div>
       </article>
 
