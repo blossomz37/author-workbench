@@ -426,7 +426,7 @@
       border-radius: 8px;
       display: grid;
       gap: 10px;
-      grid-template-columns: 22px 1fr;
+      grid-template-columns: auto minmax(0, 1fr);
       margin: 0;
       padding: 10px;
     }
@@ -520,15 +520,16 @@
     .check {
       align-items: center;
       background: var(--teal);
-      border-radius: 50%;
+      border-radius: 999px;
       color: #fff;
       display: inline-flex;
       font-size: 0.75rem;
       font-weight: 900;
       height: 22px;
       justify-content: center;
+      line-height: 1;
       min-width: 22px;
-      padding: 0 5px;
+      padding: 0 7px;
     }
 
     .timeline {
