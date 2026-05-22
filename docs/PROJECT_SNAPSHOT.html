@@ -527,7 +527,8 @@
       font-weight: 900;
       height: 22px;
       justify-content: center;
-      width: 22px;
+      min-width: 22px;
+      padding: 0 5px;
     }
 
     .timeline {
@@ -904,6 +905,23 @@
           <li><span class="check">OK</span><span>Run folders preserve prompts, streamed events, drafts, approvals, audits, and outputs.</span></li>
           <li><span class="check">OK</span><span>A draft run can pause for human approval and then resume into an audit run.</span></li>
           <li><span class="check">OK</span><span>Mock mode can test the workflow without an API key.</span></li>
+        </ul>
+      </details>
+
+      <details class="section span-2" open>
+        <summary>Agent/CLI Parity</summary>
+        <p>
+          The current V1 app has API-level parity with agent and terminal operation. Everything important the browser can do can also be driven by an agent through the Express API and local run folders.
+        </p>
+        <p class="muted">
+          This is not a polished standalone CLI yet. There is no <code>author-workbench run</code> command. The terminal path today is <code>npm run dev:server</code> plus direct API calls.
+        </p>
+        <ul class="proof-list" style="margin-top: 14px;">
+          <li><span class="check">API</span><span>Open or validate a project with <code>GET /api/project?path=...</code>.</span></li>
+          <li><span class="check">API</span><span>Preview assembled prompts with <code>POST /api/prompt/preview</code>.</span></li>
+          <li><span class="check">SSE</span><span>Start and watch workflow runs with <code>GET /api/stream?...</code> and a streaming client like <code>curl -N</code>.</span></li>
+          <li><span class="check">API</span><span>Approve edited drafts with <code>POST /api/run/approve</code>, or cancel paused runs with <code>POST /api/run/cancel</code>.</span></li>
+          <li><span class="check">FILES</span><span>Inspect completed work by reading the timestamped local <code>runs/</code> folder.</span></li>
         </ul>
       </details>
 
