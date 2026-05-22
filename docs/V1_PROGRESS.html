@@ -145,7 +145,7 @@
     }
 
     .meter {
-      --value: 83;
+      --value: 92;
       align-items: center;
       aspect-ratio: 1;
       background:
@@ -551,8 +551,8 @@
 
       <aside class="status-panel" aria-label="Completion estimate">
         <div class="meter-wrap">
-          <div class="meter" style="--value: 88">
-            <strong>88%</strong>
+          <div class="meter" style="--value: 92">
+            <strong>92%</strong>
             <span>complete</span>
           </div>
           <div class="score-lines">
@@ -568,8 +568,8 @@
             </div>
             <div class="score-line">
               <span>Proofs</span>
-              <div class="bar" style="--bar-width: 82%"><i></i></div>
-              <span>82%</span>
+              <div class="bar" style="--bar-width: 90%"><i></i></div>
+              <span>90%</span>
             </div>
             <div class="score-line">
               <span>Polish</span>
@@ -580,11 +580,11 @@
         </div>
         <div class="status-summary" aria-label="Work item summary">
           <div class="summary-stat done">
-            <strong>8</strong>
+            <strong>9</strong>
             <span>done</span>
           </div>
           <div class="summary-stat partial">
-            <strong>2</strong>
+            <strong>1</strong>
             <span>need proof</span>
           </div>
           <div class="summary-stat open">
@@ -663,13 +663,13 @@
             <div class="card-meta"><span class="pill">FR-007</span><span class="pill">FR-008</span></div>
           </article>
 
-          <article class="work-card" data-status="partial" data-tags="missing file provider error regression tests smoke test">
+          <article class="work-card" data-status="done" data-tags="missing file provider error regression tests smoke test">
             <div class="card-head">
               <strong>Error and regression coverage</strong>
-              <span class="badge partial">Needs proof</span>
+              <span class="badge done">Done</span>
             </div>
-            <p>Missing-file and provider-error behavior are designed, but need repeatable regression checks and documented pass/fail evidence.</p>
-            <div class="card-meta"><span class="pill">FR-009</span><span class="pill">acceptance</span></div>
+            <p><code>npm run smoke:regressions</code> verifies missing-file failures stop before run creation and provider errors persist to the run log.</p>
+            <div class="card-meta"><span class="pill">FR-009</span><span class="pill">Test 10</span><span class="pill">smoke</span></div>
           </article>
 
           <article class="work-card" data-status="partial" data-tags="cancel reconnect long run failure behavior">
@@ -716,12 +716,6 @@
         <div class="next-actions">
           <div class="action">
             <div>
-              <strong>Prove missing-file and provider-error paths.</strong>
-              <p class="muted">The app should fail visibly and avoid silent provider calls when required files are absent.</p>
-            </div>
-          </div>
-          <div class="action">
-            <div>
               <strong>Define cancel and reconnect behavior.</strong>
               <p class="muted">Reject and alternate are now explicit; long-running sessions still need a minimum reliability decision.</p>
             </div>
@@ -754,6 +748,7 @@
           <label class="check-row"><input type="checkbox" checked data-id="event-logs"><span>Run metadata and event logs persist.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="review-decisions"><span>The author can approve, reject, or save alternate output.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="scripted-smoke"><span>A scripted mock review-decision smoke test passes.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="failure-regressions"><span>Missing-file and provider-error regressions are covered by a repeatable smoke test.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="session-closeout"><span>The repo has a project-specific end-session workflow.</span></label>
           <label class="check-row"><input type="checkbox" data-id="readme-proof"><span>The README explains how to run the proof and what V1 does not claim.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="honest-scope"><span>The app does not pretend to be more complete than it is.</span></label>
@@ -768,8 +763,8 @@
             <span class="muted">Local files, prompt assembly, streaming, review gate, saved output, and API-level parity all work together.</span>
           </div>
           <div class="timeline-item">
-            <strong>Acceptance hardening remains</strong>
-            <span class="muted">Review decisions are implemented and script-verified. Closeout is standardized. Remaining work is focused on regressions, reliability decisions, and final deferrals.</span>
+            <strong>Acceptance hardening is mostly proven</strong>
+            <span class="muted">Review decisions, missing-file failures, and provider-error runs are script-verified. Remaining work is focused on reliability decisions and final deferrals.</span>
           </div>
           <div class="timeline-item">
             <strong>V1 tag after final proof</strong>
