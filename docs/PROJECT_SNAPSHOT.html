@@ -123,13 +123,6 @@
       max-width: 670px;
     }
 
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 28px;
-    }
-
     .button {
       align-items: center;
       background: var(--ink);
@@ -568,6 +561,16 @@
       padding: 15px;
     }
 
+    .terminal code {
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      color: inherit;
+      display: block;
+      font: inherit;
+      padding: 0;
+    }
+
     .inspiration {
       display: block;
     }
@@ -793,10 +796,6 @@
         <p class="subtitle">
           A local-first author workflow app for drafting scenes, pausing for author review, auditing approved text, and saving every run as visible local evidence.
         </p>
-        <div class="hero-actions" aria-label="Primary links">
-          <a class="button" href="PROJECT_SNAPSHOT.md">Read the markdown overview</a>
-          <a class="button secondary" href="https://github.com/blossomz37/author-workbench">View on GitHub</a>
-        </div>
       </div>
 
       <aside class="workshop-visual" aria-label="Author Workbench workflow preview">
@@ -842,26 +841,58 @@
 
     <section class="section-grid" aria-label="Project details">
       <details class="section span-2" open>
-        <summary>Current Shape</summary>
-        <div class="chips" aria-label="Technology stack">
-          <span class="chip teal">npm workspaces</span>
-          <span class="chip blue">Express + TypeScript</span>
-          <span class="chip rose">Svelte 5 + Vite</span>
-          <span class="chip gold">Server-Sent Events</span>
-          <span class="chip teal">Handlebars prompts</span>
-          <span class="chip blue">Mock + OpenAI</span>
-          <span class="chip rose">Local run folders</span>
-        </div>
+        <summary>Quick Overview</summary>
+        <p>
+          Author Workbench is a local-first author workflow app for testing AI-assisted fiction workflows. It loads author project files, assembles prompts, streams mock or OpenAI output, pauses for human review, and saves each run as local evidence.
+        </p>
+        <p class="muted">
+          This public snapshot is intentionally small. It is a shareable check-in for friends comparing parallel approaches, not the full working source repo.
+        </p>
         <p class="muted" style="margin-top: 14px;">
-          Express runs on <code>localhost:3777</code>. Vite runs on <code>localhost:5173</code> and proxies <code>/api/*</code> to the server.
+          Current status: V1 scaffold and workflow proof. The core loop can load files, assemble prompts, stream output, pause for review, resume to audit, and save the evidence locally.
         </p>
       </details>
 
+      <details class="section full inspiration" open>
+        <summary>Project Inspiration</summary>
+        <div class="inspiration-layout">
+          <div class="inspiration-copy">
+            <p>
+              Author Workbench grows out of Elizabeth Ann West's Novel Machine presentation: a writer-first vision for turning AI workflows into practical, inspectable author systems.
+            </p>
+            <p class="muted">
+              This embedded preview is included as a source-of-inspiration card, not as a dependency. If the frame does not load, open the original presentation directly.
+            </p>
+            <p style="margin-top: 14px;">
+              <a class="button secondary" href="https://ai.elizabethannwest.com/projects/novel-machine-presentation.html">Open inspiration page</a>
+            </p>
+          </div>
+          <div class="inspiration-frame" aria-label="Embedded Novel Machine presentation">
+            <div class="inspiration-bar">
+              <span class="dot rose"></span>
+              <span class="dot gold"></span>
+              <span class="dot teal"></span>
+              <span class="inspiration-url">ai.elizabethannwest.com/projects/novel-machine-presentation.html</span>
+            </div>
+            <iframe
+              title="Novel Machine presentation by Elizabeth Ann West"
+              src="https://ai.elizabethannwest.com/projects/novel-machine-presentation.html"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </details>
+
       <details class="section" open>
-        <summary>One-Line Status</summary>
-        <p>
-          The core V1 proof is working: load files, assemble prompts, stream output, pause for review, resume to audit, and save the evidence locally.
-        </p>
+        <summary>Workflow Model</summary>
+        <pre class="terminal"><code>Project files
+  -> prompt assembly
+  -> streamed draft
+  -> author review
+  -> approved text
+  -> streamed audit
+  -> saved run evidence</code></pre>
       </details>
 
       <details class="section span-2" open>
@@ -871,6 +902,7 @@
           <li><span class="check">OK</span><span>Local project files can be read into prompt context.</span></li>
           <li><span class="check">OK</span><span>Handlebars templates assemble draft, audit, and skill-backed prompts.</span></li>
           <li><span class="check">OK</span><span>Run folders preserve prompts, streamed events, drafts, approvals, audits, and outputs.</span></li>
+          <li><span class="check">OK</span><span>A draft run can pause for human approval and then resume into an audit run.</span></li>
           <li><span class="check">OK</span><span>Mock mode can test the workflow without an API key.</span></li>
         </ul>
       </details>
@@ -974,6 +1006,23 @@
         </div>
       </details>
 
+      <details class="section span-2" open>
+        <summary>Current Shape</summary>
+        <div class="chips" aria-label="Technology stack">
+          <span class="chip teal">npm workspaces</span>
+          <span class="chip blue">Express + TypeScript</span>
+          <span class="chip rose">Svelte 5 + Vite</span>
+          <span class="chip gold">Server-Sent Events</span>
+          <span class="chip teal">Handlebars prompts</span>
+          <span class="chip blue">Mock + OpenAI</span>
+          <span class="chip rose">Local run folders</span>
+          <span class="chip gold">No database in V1</span>
+        </div>
+        <p class="muted" style="margin-top: 14px;">
+          Express runs on <code>localhost:3777</code>. Vite runs on <code>localhost:5173</code> and proxies <code>/api/*</code> to the server. Project context comes from <code>project.yaml</code>, Markdown files, and Handlebars templates.
+        </p>
+      </details>
+
       <details class="section" open>
         <summary>Fixtures</summary>
         <ul>
@@ -985,6 +1034,9 @@
 
       <details class="section full" open>
         <summary>What Changed Recently</summary>
+        <p class="muted">
+          The project started as a single draft-and-audit proof. It now has a small app-action layer so different author workflows can become visible, testable actions.
+        </p>
         <div class="timeline">
           <div class="timeline-item">
             <strong>Action layer added</strong>
@@ -1001,37 +1053,6 @@
           <div class="timeline-item">
             <strong>Action metadata lives in project files</strong>
             <span class="muted">For now, each project's actions are declared in <code>project.yaml</code>.</span>
-          </div>
-        </div>
-      </details>
-
-      <details class="section full inspiration" open>
-        <summary>Project Inspiration</summary>
-        <div class="inspiration-layout">
-          <div class="inspiration-copy">
-            <p>
-              Author Workbench grows out of Elizabeth Ann West's Novel Machine presentation: a writer-first vision for turning AI workflows into practical, inspectable author systems.
-            </p>
-            <p class="muted">
-              This embedded preview is included as a source-of-inspiration card, not as a dependency. If the frame does not load, open the original presentation directly.
-            </p>
-            <p style="margin-top: 14px;">
-              <a class="button secondary" href="https://ai.elizabethannwest.com/projects/novel-machine-presentation.html">Open inspiration page</a>
-            </p>
-          </div>
-          <div class="inspiration-frame" aria-label="Embedded Novel Machine presentation">
-            <div class="inspiration-bar">
-              <span class="dot rose"></span>
-              <span class="dot gold"></span>
-              <span class="dot teal"></span>
-              <span class="inspiration-url">ai.elizabethannwest.com/projects/novel-machine-presentation.html</span>
-            </div>
-            <iframe
-              title="Novel Machine presentation by Elizabeth Ann West"
-              src="https://ai.elizabethannwest.com/projects/novel-machine-presentation.html"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
           </div>
         </div>
       </details>
@@ -1056,7 +1077,9 @@
           <li>Local files as truth.</li>
           <li>Visible prompt assembly.</li>
           <li>Saved evidence over hidden runtime state.</li>
+          <li>Author approval before downstream audit.</li>
           <li>Mock-first testing.</li>
+          <li>Simple infrastructure before a database or full workflow engine.</li>
           <li>Explicit action wrappers for skills.</li>
         </ul>
       </details>
@@ -1069,6 +1092,7 @@
           <li>Multiple approval gates.</li>
           <li><code>project.yaml</code> vs <code>actions.yaml</code>.</li>
           <li>Which real skills to wrap next.</li>
+          <li>How polished the UI needs to become before this is useful beyond internal testing.</li>
         </ul>
       </details>
 
@@ -1078,7 +1102,7 @@
 npm run dev:server
 npm run dev:ui</code></pre>
         <p class="muted" style="margin-top: 12px;">
-          Then open <code>http://localhost:5173/</code>. Mock mode works without an API key.
+          Then open <code>http://localhost:5173/</code>. Mock mode works without an API key. OpenAI mode requires <code>OPENAI_API_KEY</code> in the server environment.
         </p>
       </details>
 
