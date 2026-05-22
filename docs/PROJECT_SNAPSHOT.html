@@ -291,7 +291,10 @@
       display: grid;
       gap: 18px;
       grid-template-columns: 1fr;
-      margin-top: 12px;
+      margin: 26px auto 0;
+      max-width: 920px;
+      min-width: 0;
+      width: 100%;
     }
 
     .section {
@@ -311,6 +314,7 @@
     }
 
     details.section {
+      min-width: 0;
       padding: 0;
     }
 
@@ -366,6 +370,7 @@
     details.section > :not(summary) {
       margin-left: 20px;
       margin-right: 20px;
+      min-width: 0;
     }
 
     details.section > :last-child {
@@ -439,6 +444,7 @@
       grid-auto-columns: minmax(280px, calc((100% - 24px) / 3));
       grid-auto-flow: column;
       margin-top: 14px;
+      min-width: 0;
       overflow-x: auto;
       overscroll-behavior-inline: contain;
       padding: 2px 2px 14px;
@@ -461,6 +467,43 @@
       display: block;
       object-fit: cover;
       width: 100%;
+    }
+
+    .proof-shot-button {
+      background: transparent;
+      border: 0;
+      cursor: zoom-in;
+      display: block;
+      padding: 0;
+      position: relative;
+      width: 100%;
+    }
+
+    .proof-shot-button::after {
+      background: rgba(39, 33, 58, 0.86);
+      border-radius: 999px;
+      bottom: 10px;
+      color: #fff;
+      content: "Enlarge";
+      font-size: 0.76rem;
+      font-weight: 850;
+      opacity: 0;
+      padding: 5px 9px;
+      position: absolute;
+      right: 10px;
+      transform: translateY(4px);
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+
+    .proof-shot-button:hover::after,
+    .proof-shot-button:focus-visible::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .proof-shot-button:focus-visible {
+      outline: 3px solid rgba(59, 110, 168, 0.45);
+      outline-offset: -3px;
     }
 
     .proof-shot figcaption {
@@ -529,7 +572,7 @@
       display: block;
     }
 
-    .inspiration[open] {
+    .inspiration-layout {
       display: grid;
       grid-template-columns: minmax(0, 0.75fr) minmax(320px, 1.25fr);
       align-items: stretch;
@@ -591,6 +634,79 @@
       text-align: center;
     }
 
+    .shot-modal {
+      background: #fffaf4;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 24px 80px rgba(39, 33, 58, 0.34);
+      color: var(--ink);
+      max-height: calc(100dvh - 32px);
+      max-width: min(1120px, calc(100vw - 32px));
+      overflow: hidden;
+      padding: 0;
+      width: min(1120px, calc(100vw - 32px));
+    }
+
+    .shot-modal::backdrop {
+      background: rgba(39, 33, 58, 0.58);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-toolbar {
+      align-items: center;
+      background: #f9e8d3;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      padding: 10px 12px 10px 16px;
+    }
+
+    .modal-toolbar strong {
+      font-size: 0.98rem;
+      line-height: 1.25;
+    }
+
+    .modal-close {
+      background: var(--ink);
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 850;
+      min-height: 34px;
+      padding: 0 12px;
+    }
+
+    .modal-close:focus-visible {
+      outline: 3px solid rgba(59, 110, 168, 0.45);
+      outline-offset: 2px;
+    }
+
+    .modal-image-wrap {
+      background: #27213a;
+      display: grid;
+      max-height: calc(100dvh - 170px);
+      overflow: auto;
+      place-items: center;
+    }
+
+    .modal-image-wrap img {
+      display: block;
+      height: auto;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .modal-caption {
+      background: #fffaf4;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.92rem;
+      padding: 12px 16px 14px;
+    }
+
     @media (max-width: 860px) {
       .hero {
         grid-template-columns: 1fr;
@@ -614,7 +730,7 @@
         grid-column: 1 / -1;
       }
 
-      .inspiration {
+      .inspiration-layout {
         grid-template-columns: 1fr;
       }
     }
@@ -651,6 +767,19 @@
       .inspiration-frame iframe {
         min-height: 360px;
         height: 360px;
+      }
+
+      .shot-modal {
+        max-width: calc(100vw - 20px);
+        width: calc(100vw - 20px);
+      }
+
+      .modal-toolbar {
+        padding-left: 12px;
+      }
+
+      .modal-image-wrap {
+        max-height: calc(100dvh - 190px);
       }
     }
   </style>
@@ -753,42 +882,90 @@
         </p>
         <div class="proof-carousel" aria-label="Development proof screenshots">
           <figure class="proof-shot">
-            <img src="assets/screenshots/project-picker.png" alt="Author Workbench project picker screen">
+            <button
+              class="proof-shot-button"
+              type="button"
+              data-shot-src="assets/screenshots/project-picker.png"
+              data-shot-title="Project picker"
+              data-shot-caption="Loads a local author project folder before any run starts."
+              aria-label="Enlarge Project picker screenshot">
+              <img src="assets/screenshots/project-picker.png" alt="Author Workbench project picker screen">
+            </button>
             <figcaption>
               <strong>Project picker</strong>
               <span>Loads a local author project folder before any run starts.</span>
             </figcaption>
           </figure>
           <figure class="proof-shot">
-            <img src="assets/screenshots/dashboard.png" alt="Author Workbench project dashboard screen">
+            <button
+              class="proof-shot-button"
+              type="button"
+              data-shot-src="assets/screenshots/dashboard.png"
+              data-shot-title="Dashboard"
+              data-shot-caption="Shows project status, files, actions, and recent run evidence."
+              aria-label="Enlarge Dashboard screenshot">
+              <img src="assets/screenshots/dashboard.png" alt="Author Workbench project dashboard screen">
+            </button>
             <figcaption>
               <strong>Dashboard</strong>
               <span>Shows project status, files, actions, and recent run evidence.</span>
             </figcaption>
           </figure>
           <figure class="proof-shot">
-            <img src="assets/screenshots/workflow-runner.png" alt="Author Workbench workflow runner screen">
+            <button
+              class="proof-shot-button"
+              type="button"
+              data-shot-src="assets/screenshots/workflow-runner.png"
+              data-shot-title="Workflow runner"
+              data-shot-caption="Selects an action, input, provider, and previewable prompt path."
+              aria-label="Enlarge Workflow runner screenshot">
+              <img src="assets/screenshots/workflow-runner.png" alt="Author Workbench workflow runner screen">
+            </button>
             <figcaption>
               <strong>Workflow runner</strong>
               <span>Selects an action, input, provider, and previewable prompt path.</span>
             </figcaption>
           </figure>
           <figure class="proof-shot">
-            <img src="assets/screenshots/live-run-paused.png" alt="Author Workbench live run paused screen">
+            <button
+              class="proof-shot-button"
+              type="button"
+              data-shot-src="assets/screenshots/live-run-paused.png"
+              data-shot-title="Live streamed run"
+              data-shot-caption="Streams events and pauses after draft generation for author review."
+              aria-label="Enlarge Live streamed run screenshot">
+              <img src="assets/screenshots/live-run-paused.png" alt="Author Workbench live run paused screen">
+            </button>
             <figcaption>
               <strong>Live streamed run</strong>
               <span>Streams events and pauses after draft generation for author review.</span>
             </figcaption>
           </figure>
           <figure class="proof-shot">
-            <img src="assets/screenshots/review-draft.png" alt="Author Workbench review draft screen">
+            <button
+              class="proof-shot-button"
+              type="button"
+              data-shot-src="assets/screenshots/review-draft.png"
+              data-shot-title="Review gate"
+              data-shot-caption="The author can edit or approve draft text before downstream audit."
+              aria-label="Enlarge Review gate screenshot">
+              <img src="assets/screenshots/review-draft.png" alt="Author Workbench review draft screen">
+            </button>
             <figcaption>
               <strong>Review gate</strong>
               <span>The author can edit or approve draft text before downstream audit.</span>
             </figcaption>
           </figure>
           <figure class="proof-shot">
-            <img src="assets/screenshots/audit-results.png" alt="Author Workbench audit results screen">
+            <button
+              class="proof-shot-button"
+              type="button"
+              data-shot-src="assets/screenshots/audit-results.png"
+              data-shot-title="Audit results"
+              data-shot-caption="Completed runs preserve generated output and supporting artifacts."
+              aria-label="Enlarge Audit results screenshot">
+              <img src="assets/screenshots/audit-results.png" alt="Author Workbench audit results screen">
+            </button>
             <figcaption>
               <strong>Audit results</strong>
               <span>Completed runs preserve generated output and supporting artifacts.</span>
@@ -830,30 +1007,32 @@
 
       <details class="section full inspiration" open>
         <summary>Project Inspiration</summary>
-        <div class="inspiration-copy">
-          <p>
-            Author Workbench grows out of Elizabeth Ann West's Novel Machine presentation: a writer-first vision for turning AI workflows into practical, inspectable author systems.
-          </p>
-          <p class="muted">
-            This embedded preview is included as a source-of-inspiration card, not as a dependency. If the frame does not load, open the original presentation directly.
-          </p>
-          <p style="margin-top: 14px;">
-            <a class="button secondary" href="https://ai.elizabethannwest.com/projects/novel-machine-presentation.html">Open inspiration page</a>
-          </p>
-        </div>
-        <div class="inspiration-frame" aria-label="Embedded Novel Machine presentation">
-          <div class="inspiration-bar">
-            <span class="dot rose"></span>
-            <span class="dot gold"></span>
-            <span class="dot teal"></span>
-            <span class="inspiration-url">ai.elizabethannwest.com/projects/novel-machine-presentation.html</span>
+        <div class="inspiration-layout">
+          <div class="inspiration-copy">
+            <p>
+              Author Workbench grows out of Elizabeth Ann West's Novel Machine presentation: a writer-first vision for turning AI workflows into practical, inspectable author systems.
+            </p>
+            <p class="muted">
+              This embedded preview is included as a source-of-inspiration card, not as a dependency. If the frame does not load, open the original presentation directly.
+            </p>
+            <p style="margin-top: 14px;">
+              <a class="button secondary" href="https://ai.elizabethannwest.com/projects/novel-machine-presentation.html">Open inspiration page</a>
+            </p>
           </div>
-          <iframe
-            title="Novel Machine presentation by Elizabeth Ann West"
-            src="https://ai.elizabethannwest.com/projects/novel-machine-presentation.html"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
+          <div class="inspiration-frame" aria-label="Embedded Novel Machine presentation">
+            <div class="inspiration-bar">
+              <span class="dot rose"></span>
+              <span class="dot gold"></span>
+              <span class="dot teal"></span>
+              <span class="inspiration-url">ai.elizabethannwest.com/projects/novel-machine-presentation.html</span>
+            </div>
+            <iframe
+              title="Novel Machine presentation by Elizabeth Ann West"
+              src="https://ai.elizabethannwest.com/projects/novel-machine-presentation.html"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
         </div>
       </details>
 
@@ -930,5 +1109,49 @@ npm run dev:ui</code></pre>
       Built as a friendly repo check-in for people comparing parallel author-workflow experiments.
     </p>
   </main>
+
+  <dialog class="shot-modal" id="shot-modal" aria-labelledby="shot-modal-title">
+    <div class="modal-toolbar">
+      <strong id="shot-modal-title">Screenshot</strong>
+      <form method="dialog">
+        <button class="modal-close" type="submit">Close</button>
+      </form>
+    </div>
+    <div class="modal-image-wrap">
+      <img id="shot-modal-image" src="" alt="">
+    </div>
+    <div class="modal-caption" id="shot-modal-caption"></div>
+  </dialog>
+
+  <script>
+    const shotModal = document.querySelector("#shot-modal");
+    const shotModalTitle = document.querySelector("#shot-modal-title");
+    const shotModalImage = document.querySelector("#shot-modal-image");
+    const shotModalCaption = document.querySelector("#shot-modal-caption");
+
+    document.querySelectorAll(".proof-shot-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const title = button.dataset.shotTitle || "Screenshot";
+        const caption = button.dataset.shotCaption || "";
+        const src = button.dataset.shotSrc || "";
+
+        shotModalTitle.textContent = title;
+        shotModalCaption.textContent = caption;
+        shotModalImage.src = src;
+        shotModalImage.alt = `${title} screenshot`;
+        shotModal.showModal();
+      });
+    });
+
+    shotModal.addEventListener("click", (event) => {
+      if (event.target === shotModal) {
+        shotModal.close();
+      }
+    });
+
+    shotModal.addEventListener("close", () => {
+      shotModalImage.removeAttribute("src");
+    });
+  </script>
 </body>
 </html>
