@@ -2,7 +2,8 @@
 
 **Snapshot date:** 2026-05-22  
 **Status:** V1 scaffold and workflow proof  
-**HTML version:** [PROJECT_SNAPSHOT.html](PROJECT_SNAPSHOT.html)
+**HTML version:** [PROJECT_SNAPSHOT.html](PROJECT_SNAPSHOT.html)  
+**GitHub Pages URL:** <https://blossomz37.github.io/author-workbench/>
 
 Author Workbench is a local-first author workflow app for testing AI-assisted fiction workflows. It loads author project files, assembles prompts, streams mock or OpenAI output, pauses for human review, and saves each run as local evidence.
 
@@ -102,10 +103,11 @@ http://localhost:5173/
 
 Mock mode works without an API key. OpenAI mode requires `OPENAI_API_KEY` in the server environment.
 
-## What This Public Folder Contains
+## What This Docs Folder Contains
 
 | File | Purpose |
 |---|---|
+| [`index.html`](index.html) | GitHub Pages entry point that opens the HTML snapshot |
 | [`PROJECT_SNAPSHOT.md`](PROJECT_SNAPSHOT.md) | GitHub-friendly project overview |
 | [`PROJECT_SNAPSHOT.html`](PROJECT_SNAPSHOT.html) | Cute standalone HTML snapshot |
 

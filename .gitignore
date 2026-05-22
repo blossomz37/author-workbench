@@ -1,5 +1,5 @@
-# Publish repo guard: only public/ content should be tracked.
+# Publish repo guard: only docs/ content should be tracked.
 *
 !.gitignore
-!public/
-!public/**
+!docs/
+!docs/**
