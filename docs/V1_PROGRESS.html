@@ -1,0 +1,855 @@
+<!doctype html>
+<!--
+  File: V1_PROGRESS.html
+  Description: Interactive V1 completion board for Author Workbench.
+  Version: 0.1.0
+  Created: 2026-05-22
+  Modified: 2026-05-22
+  Author: Carlo / Codex
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Author Workbench V1 Progress</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #27213a;
+      --muted: #6c667d;
+      --paper: #fffaf2;
+      --panel: #ffffff;
+      --line: #ead7bf;
+      --teal: #247c72;
+      --teal-soft: #dbf1ec;
+      --rose: #d95d6a;
+      --rose-soft: #ffe5e8;
+      --gold: #d5962c;
+      --gold-soft: #fff0cf;
+      --blue: #3b6ea8;
+      --blue-soft: #e4effb;
+      --shadow: 0 18px 55px rgba(63, 45, 31, 0.13);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(234, 215, 191, 0.34) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(234, 215, 191, 0.34) 1px, transparent 1px),
+        var(--paper);
+      background-size: 26px 26px;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    code {
+      background: #fff7ec;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: #594126;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+      padding: 0.08rem 0.32rem;
+    }
+
+    .page {
+      margin: 0 auto;
+      max-width: 1180px;
+      padding: 28px 18px 52px;
+    }
+
+    .hero {
+      align-items: stretch;
+      display: grid;
+      gap: 22px;
+      grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+      margin-bottom: 22px;
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      padding: 38px 0;
+    }
+
+    .eyebrow {
+      align-items: center;
+      color: var(--teal);
+      display: inline-flex;
+      font-size: 0.78rem;
+      font-weight: 850;
+      gap: 8px;
+      margin: 0 0 14px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      background: var(--teal);
+      border-radius: 999px;
+      content: "";
+      height: 8px;
+      width: 8px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 7vw, 5.2rem);
+      letter-spacing: 0;
+      line-height: 0.96;
+      margin: 0;
+      max-width: 11ch;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: clamp(1.04rem, 2vw, 1.22rem);
+      margin: 20px 0 0;
+      max-width: 700px;
+    }
+
+    .status-panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 18px;
+      grid-template-rows: 1fr auto;
+      min-height: 300px;
+      padding: 18px;
+    }
+
+    .meter-wrap {
+      align-items: center;
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 150px minmax(0, 1fr);
+      justify-content: center;
+    }
+
+    .meter {
+      --value: 83;
+      align-items: center;
+      aspect-ratio: 1;
+      background:
+        radial-gradient(circle, #fffaf4 0 58%, transparent 59%),
+        conic-gradient(var(--teal) calc(var(--value) * 1%), #efe4d3 0);
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      display: grid;
+      justify-items: center;
+      padding: 20px;
+    }
+
+    .meter strong {
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .meter span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .score-lines {
+      display: grid;
+      gap: 8px;
+    }
+
+    .status-summary {
+      border-top: 1px solid var(--line);
+      display: grid;
+      gap: 8px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      padding-top: 14px;
+    }
+
+    .summary-stat {
+      background: #fffaf4;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .summary-stat strong {
+      display: block;
+      font-size: 1.1rem;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .summary-stat span {
+      color: var(--muted);
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 850;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .summary-stat.done strong {
+      color: var(--teal);
+    }
+
+    .summary-stat.partial strong {
+      color: var(--gold);
+    }
+
+    .summary-stat.open strong {
+      color: var(--rose);
+    }
+
+    .score-line {
+      align-items: center;
+      display: grid;
+      gap: 8px;
+      grid-template-columns: 82px minmax(0, 1fr) 42px;
+    }
+
+    .score-line span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+    .bar {
+      background: #efe4d3;
+      border-radius: 999px;
+      height: 10px;
+      overflow: hidden;
+    }
+
+    .bar i {
+      background: var(--teal);
+      display: block;
+      height: 100%;
+      width: var(--bar-width);
+    }
+
+    .controls {
+      align-items: center;
+      background: rgba(255, 250, 244, 0.82);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      margin: 0 auto 18px;
+      padding: 12px;
+      position: sticky;
+      top: 10px;
+      z-index: 5;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-button {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink);
+      font-weight: 850;
+      min-height: 36px;
+      padding: 0 13px;
+    }
+
+    .filter-button.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fff;
+    }
+
+    .search {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 38px;
+      min-width: min(260px, 100%);
+      padding: 0 12px;
+    }
+
+    .dashboard {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+    }
+
+    .section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(63, 45, 31, 0.07);
+      min-width: 0;
+      padding: 18px;
+    }
+
+    .section.full {
+      grid-column: 1 / -1;
+    }
+
+    .section h2 {
+      font-size: 1.08rem;
+      margin: 0 0 12px;
+    }
+
+    .section p {
+      margin: 0 0 12px;
+    }
+
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .cards {
+      display: grid;
+      gap: 12px;
+    }
+
+    .work-card {
+      background: #fffaf4;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--status-color);
+      border-radius: 8px;
+      display: grid;
+      gap: 8px;
+      padding: 13px;
+    }
+
+    .work-card[hidden] {
+      display: none;
+    }
+
+    .work-card[data-status="done"] {
+      --status-color: var(--teal);
+    }
+
+    .work-card[data-status="partial"] {
+      --status-color: var(--gold);
+    }
+
+    .work-card[data-status="open"] {
+      --status-color: var(--rose);
+    }
+
+    .card-head {
+      align-items: start;
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+    }
+
+    .card-head strong {
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    .badge {
+      border-radius: 999px;
+      flex: 0 0 auto;
+      font-size: 0.74rem;
+      font-weight: 900;
+      padding: 5px 8px;
+      text-transform: uppercase;
+    }
+
+    .badge.done {
+      background: var(--teal-soft);
+      color: #14564f;
+    }
+
+    .badge.partial {
+      background: var(--gold-soft);
+      color: #6e4b08;
+    }
+
+    .badge.open {
+      background: var(--rose-soft);
+      color: #8f303b;
+    }
+
+    .card-meta {
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 0.84rem;
+      gap: 6px;
+    }
+
+    .pill {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 8px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .timeline-item {
+      border-left: 4px solid var(--gold);
+      padding: 2px 0 2px 12px;
+    }
+
+    .timeline-item strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .checklist {
+      display: grid;
+      gap: 9px;
+    }
+
+    .check-row {
+      align-items: flex-start;
+      background: #fffaf4;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 22px minmax(0, 1fr);
+      padding: 10px;
+    }
+
+    .check-row input {
+      accent-color: var(--teal);
+      margin-top: 4px;
+    }
+
+    .next-actions {
+      counter-reset: action;
+      display: grid;
+      gap: 10px;
+    }
+
+    .action {
+      align-items: start;
+      background: #fffaf4;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 34px minmax(0, 1fr);
+      padding: 12px;
+    }
+
+    .action::before {
+      align-items: center;
+      background: var(--blue-soft);
+      border-radius: 999px;
+      color: #224c7a;
+      content: counter(action);
+      counter-increment: action;
+      display: inline-flex;
+      font-weight: 900;
+      height: 28px;
+      justify-content: center;
+      width: 28px;
+    }
+
+    .empty {
+      background: var(--blue-soft);
+      border: 1px solid rgba(59, 110, 168, 0.2);
+      border-radius: 8px;
+      color: #224c7a;
+      display: none;
+      font-weight: 800;
+      padding: 14px;
+    }
+
+    .footer {
+      color: var(--muted);
+      font-size: 0.9rem;
+      padding-top: 18px;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        padding-bottom: 0;
+      }
+
+      h1 {
+        max-width: none;
+      }
+
+      .controls {
+        position: static;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .meter-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .meter {
+        justify-self: center;
+        width: min(190px, 100%);
+      }
+
+      .status-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .score-line {
+        grid-template-columns: 70px minmax(0, 1fr) 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Author Workbench V1 status board</p>
+        <h1 id="page-title">What is done, what is next</h1>
+        <p class="subtitle">
+          A working board for the V1 compatibility proof: local files, prompt assembly, provider streaming, author review, saved output, and the final hardening needed before calling the spec complete.
+        </p>
+      </div>
+
+      <aside class="status-panel" aria-label="Completion estimate">
+        <div class="meter-wrap">
+          <div class="meter" style="--value: 88">
+            <strong>88%</strong>
+            <span>complete</span>
+          </div>
+          <div class="score-lines">
+            <div class="score-line">
+              <span>Core</span>
+              <div class="bar" style="--bar-width: 94%"><i></i></div>
+              <span>94%</span>
+            </div>
+            <div class="score-line">
+              <span>UI</span>
+              <div class="bar" style="--bar-width: 84%"><i></i></div>
+              <span>84%</span>
+            </div>
+            <div class="score-line">
+              <span>Proofs</span>
+              <div class="bar" style="--bar-width: 82%"><i></i></div>
+              <span>82%</span>
+            </div>
+            <div class="score-line">
+              <span>Polish</span>
+              <div class="bar" style="--bar-width: 68%"><i></i></div>
+              <span>68%</span>
+            </div>
+          </div>
+        </div>
+        <div class="status-summary" aria-label="Work item summary">
+          <div class="summary-stat done">
+            <strong>8</strong>
+            <span>done</span>
+          </div>
+          <div class="summary-stat partial">
+            <strong>2</strong>
+            <span>need proof</span>
+          </div>
+          <div class="summary-stat open">
+            <strong>1</strong>
+            <span>open</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="controls" aria-label="Board controls">
+      <div class="filter-group" aria-label="Status filters">
+        <button class="filter-button active" type="button" data-filter="all">All</button>
+        <button class="filter-button" type="button" data-filter="done">Done</button>
+        <button class="filter-button" type="button" data-filter="partial">Needs proof</button>
+        <button class="filter-button" type="button" data-filter="open">Open</button>
+      </div>
+      <input class="search" type="search" id="search" placeholder="Search the board" aria-label="Search the board">
+    </section>
+
+    <section class="dashboard" aria-label="Progress dashboard">
+      <section class="section">
+        <h2>Spec Coverage</h2>
+        <div class="cards" id="cards">
+          <article class="work-card" data-status="done" data-tags="project yaml local files sample project">
+            <div class="card-head">
+              <strong>Project loading and validation</strong>
+              <span class="badge done">Done</span>
+            </div>
+            <p>Loads local author projects from <code>project.yaml</code>, reports files, scenes, actions, missing files, and validation errors.</p>
+            <div class="card-meta"><span class="pill">FR-001</span><span class="pill">project route</span></div>
+          </article>
+
+          <article class="work-card" data-status="done" data-tags="prompt preview handlebars dossier scenes templates">
+            <div class="card-head">
+              <strong>Prompt assembly and preview</strong>
+              <span class="badge done">Done</span>
+            </div>
+            <p>Assembles prompts from dossier files, selected inputs, skill instructions, and Handlebars templates before a provider run.</p>
+            <div class="card-meta"><span class="pill">FR-002</span><span class="pill">preview</span></div>
+          </article>
+
+          <article class="work-card" data-status="done" data-tags="sse mock openai stream provider events">
+            <div class="card-head">
+              <strong>Provider streaming over SSE</strong>
+              <span class="badge done">Done</span>
+            </div>
+            <p>Mock and OpenAI providers stream normalized app events through the same browser and CLI-visible API contract.</p>
+            <div class="card-meta"><span class="pill">FR-003</span><span class="pill">FR-004</span><span class="pill">SSE</span></div>
+          </article>
+
+          <article class="work-card" data-status="done" data-tags="run folders events jsonl draft audit approval evidence">
+            <div class="card-head">
+              <strong>Run evidence on disk</strong>
+              <span class="badge done">Done</span>
+            </div>
+            <p>Run folders preserve prompts, events, metadata, drafts, approved drafts, approval metadata, and audits.</p>
+            <div class="card-meta"><span class="pill">FR-005</span><span class="pill">FR-006</span></div>
+          </article>
+
+          <article class="work-card" data-status="done" data-tags="actions skill template single step draft audit schema validation">
+            <div class="card-head">
+              <strong>App-action layer</strong>
+              <span class="badge done">Done</span>
+            </div>
+            <p>Supports <code>draft-and-audit</code>, <code>single-step</code>, and <code>skill-template</code> actions with strict schema validation.</p>
+            <div class="card-meta"><span class="pill">actions</span><span class="pill">schema</span></div>
+          </article>
+
+          <article class="work-card" data-status="done" data-tags="human review approve reject alternate decision">
+            <div class="card-head">
+              <strong>Review decisions</strong>
+              <span class="badge done">Done</span>
+            </div>
+            <p>Approve, reject, and save-as-alternate are visible in the UI, recorded in run metadata, and backed by run-folder artifacts.</p>
+            <div class="card-meta"><span class="pill">FR-007</span><span class="pill">FR-008</span></div>
+          </article>
+
+          <article class="work-card" data-status="partial" data-tags="missing file provider error regression tests smoke test">
+            <div class="card-head">
+              <strong>Error and regression coverage</strong>
+              <span class="badge partial">Needs proof</span>
+            </div>
+            <p>Missing-file and provider-error behavior are designed, but need repeatable regression checks and documented pass/fail evidence.</p>
+            <div class="card-meta"><span class="pill">FR-009</span><span class="pill">acceptance</span></div>
+          </article>
+
+          <article class="work-card" data-status="partial" data-tags="cancel reconnect long run failure behavior">
+            <div class="card-head">
+              <strong>Cancel and reconnect behavior</strong>
+              <span class="badge partial">Needs definition</span>
+            </div>
+            <p>Cancel exists for paused runs. Minimum behavior for reconnects, failed approval continuation, and long-running sessions still needs a V1 decision.</p>
+            <div class="card-meta"><span class="pill">reliability</span><span class="pill">scope</span></div>
+          </article>
+
+          <article class="work-card" data-status="done" data-tags="smoke test fixture validator automated checklist">
+            <div class="card-head">
+              <strong>Scripted smoke test</strong>
+              <span class="badge done">Done</span>
+            </div>
+            <p><code>npm run smoke:review</code> exercises mock approve, reject, and save-as-alternate decisions and verifies generated artifacts stay ignored.</p>
+            <div class="card-meta"><span class="pill">test</span><span class="pill">fixture</span></div>
+          </article>
+
+          <article class="work-card" data-status="done" data-tags="session closeout workflow smart changes public publish docs">
+            <div class="card-head">
+              <strong>Session closeout workflow</strong>
+              <span class="badge done">Done</span>
+            </div>
+            <p>Project-specific closeout now separates private local commits from the limited public Pages snapshot workflow.</p>
+            <div class="card-meta"><span class="pill">agents</span><span class="pill">publishing</span></div>
+          </article>
+
+          <article class="work-card" data-status="open" data-tags="readme docs final acceptance deferrals">
+            <div class="card-head">
+              <strong>Final README and deferral notes</strong>
+              <span class="badge open">Open</span>
+            </div>
+            <p>The README should match the final acceptance flow and clearly mark what V1 proves versus what is deferred.</p>
+            <div class="card-meta"><span class="pill">docs</span><span class="pill">release</span></div>
+          </article>
+        </div>
+        <div class="empty" id="empty">No matching cards. Clear the search or change the filter.</div>
+      </section>
+
+      <aside class="section">
+        <h2>Best Next Moves</h2>
+        <div class="next-actions">
+          <div class="action">
+            <div>
+              <strong>Prove missing-file and provider-error paths.</strong>
+              <p class="muted">The app should fail visibly and avoid silent provider calls when required files are absent.</p>
+            </div>
+          </div>
+          <div class="action">
+            <div>
+              <strong>Define cancel and reconnect behavior.</strong>
+              <p class="muted">Reject and alternate are now explicit; long-running sessions still need a minimum reliability decision.</p>
+            </div>
+          </div>
+          <div class="action">
+            <div>
+              <strong>Tighten final docs.</strong>
+              <p class="muted">Update the README against the acceptance flow and list remaining deferrals before tagging V1.</p>
+            </div>
+          </div>
+          <div class="action">
+            <div>
+              <strong>Wrap the next app-ready skill.</strong>
+              <p class="muted">Use the proven action metadata standard once the remaining regression checks are stable.</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <section class="section full">
+        <h2>Definition of Done Checklist</h2>
+        <p class="muted">This checklist is stored in this browser only. Use it as a planning aid, not as canonical project state.</p>
+        <div class="checklist" id="checklist">
+          <label class="check-row"><input type="checkbox" checked data-id="clone-run"><span>A local developer can run backend and frontend from documented commands.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="sample-open"><span>A sample project can be opened and validated.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="prompt-assembly"><span>A prompt can be assembled from local files.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="mock-stream"><span>A mock stream proves UI streaming and logs.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="real-provider"><span>A real provider-backed run streams into the UI when configured.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="outputs-save"><span>Draft and audit outputs save to disk.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="event-logs"><span>Run metadata and event logs persist.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="review-decisions"><span>The author can approve, reject, or save alternate output.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="scripted-smoke"><span>A scripted mock review-decision smoke test passes.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="session-closeout"><span>The repo has a project-specific end-session workflow.</span></label>
+          <label class="check-row"><input type="checkbox" data-id="readme-proof"><span>The README explains how to run the proof and what V1 does not claim.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="honest-scope"><span>The app does not pretend to be more complete than it is.</span></label>
+        </div>
+      </section>
+
+      <section class="section full">
+        <h2>Milestone Map</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <strong>Compatibility proof passed</strong>
+            <span class="muted">Local files, prompt assembly, streaming, review gate, saved output, and API-level parity all work together.</span>
+          </div>
+          <div class="timeline-item">
+            <strong>Acceptance hardening remains</strong>
+            <span class="muted">Review decisions are implemented and script-verified. Closeout is standardized. Remaining work is focused on regressions, reliability decisions, and final deferrals.</span>
+          </div>
+          <div class="timeline-item">
+            <strong>V1 tag after final proof</strong>
+            <span class="muted">Once regression checks and remaining deferrals are handled, the spec can close cleanly.</span>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <p class="footer">
+      Built as a working visualization from the current V1 spec, snapshot, and implementation evidence.
+    </p>
+  </main>
+
+  <script>
+    const filterButtons = [...document.querySelectorAll("[data-filter]")];
+    const cards = [...document.querySelectorAll(".work-card")];
+    const searchInput = document.querySelector("#search");
+    const empty = document.querySelector("#empty");
+
+    let activeFilter = "all";
+
+    function applyFilters() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      for (const card of cards) {
+        const statusMatch = activeFilter === "all" || card.dataset.status === activeFilter;
+        const text = `${card.textContent} ${card.dataset.tags || ""}`.toLowerCase();
+        const searchMatch = !query || text.includes(query);
+        const visible = statusMatch && searchMatch;
+        card.hidden = !visible;
+        if (visible) visibleCount += 1;
+      }
+
+      empty.style.display = visibleCount === 0 ? "block" : "none";
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        activeFilter = button.dataset.filter;
+        filterButtons.forEach((candidate) => {
+          candidate.classList.toggle("active", candidate === button);
+        });
+        applyFilters();
+      });
+    });
+
+    searchInput.addEventListener("input", applyFilters);
+
+    const checklist = [...document.querySelectorAll("#checklist input[type='checkbox']")];
+    const storageKey = "author-workbench-v1-progress-checklist";
+
+    function loadChecklist() {
+      const raw = localStorage.getItem(storageKey);
+      if (!raw) return;
+
+      try {
+        const saved = JSON.parse(raw);
+        checklist.forEach((box) => {
+          if (Object.prototype.hasOwnProperty.call(saved, box.dataset.id)) {
+            box.checked = Boolean(saved[box.dataset.id]);
+          }
+        });
+      } catch {
+        localStorage.removeItem(storageKey);
+      }
+    }
+
+    function saveChecklist() {
+      const state = {};
+      checklist.forEach((box) => {
+        state[box.dataset.id] = box.checked;
+      });
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    }
+
+    checklist.forEach((box) => box.addEventListener("change", saveChecklist));
+    loadChecklist();
+    applyFilters();
+  </script>
+</body>
+</html>
