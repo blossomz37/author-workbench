@@ -334,17 +334,20 @@
 
     details.section > summary::after {
       align-items: center;
-      background: var(--gold-soft);
-      border: 1px solid rgba(213, 150, 44, 0.28);
+      background: var(--teal-soft);
+      border: 1px solid rgba(36, 124, 114, 0.22);
       border-radius: 999px;
-      color: #6e4b08;
-      content: "+";
+      color: #14564f;
+      content: ">";
       display: inline-flex;
       flex: 0 0 auto;
-      font-size: 1rem;
+      font-size: 0.86rem;
       font-weight: 900;
       height: 26px;
       justify-content: center;
+      line-height: 1;
+      transform: rotate(0deg);
+      transition: transform 160ms ease;
       width: 26px;
     }
 
@@ -353,7 +356,7 @@
     }
 
     details.section[open] > summary::after {
-      content: "-";
+      transform: rotate(90deg);
     }
 
     details.section > summary + * {
@@ -677,14 +680,14 @@
         </p>
       </details>
 
-      <details class="section">
+      <details class="section" open>
         <summary>One-Line Status</summary>
         <p>
           The core V1 proof is working: load files, assemble prompts, stream output, pause for review, resume to audit, and save the evidence locally.
         </p>
       </details>
 
-      <details class="section span-2">
+      <details class="section span-2" open>
         <summary>What Is Proven</summary>
         <ul class="proof-list">
           <li><span class="check">OK</span><span>Browser streaming works with Server-Sent Events.</span></li>
@@ -695,7 +698,7 @@
         </ul>
       </details>
 
-      <details class="section">
+      <details class="section" open>
         <summary>Fixtures</summary>
         <ul>
           <li><code>sample-project/</code> is the small "The Cabin" test project.</li>
@@ -704,7 +707,7 @@
         </ul>
       </details>
 
-      <details class="section full">
+      <details class="section full" open>
         <summary>What Changed Recently</summary>
         <div class="timeline">
           <div class="timeline-item">
@@ -726,7 +729,7 @@
         </div>
       </details>
 
-      <details class="section full inspiration">
+      <details class="section full inspiration" open>
         <summary>Project Inspiration</summary>
         <div class="inspiration-copy">
           <p>
@@ -755,7 +758,7 @@
         </div>
       </details>
 
-      <details class="section span-2">
+      <details class="section span-2" open>
         <summary>Support Skills In This Workspace</summary>
         <ul>
           <li><code>specforge</code>: Turns fuzzy app or workflow ideas into evidence-backed build specs.</li>
@@ -769,7 +772,7 @@
         </p>
       </details>
 
-      <details class="section">
+      <details class="section" open>
         <summary>Design Bias</summary>
         <ul>
           <li>Local files as truth.</li>
@@ -780,7 +783,7 @@
         </ul>
       </details>
 
-      <details class="section">
+      <details class="section" open>
         <summary>Still Open</summary>
         <ul>
           <li>Anthropic provider adapter.</li>
@@ -791,7 +794,7 @@
         </ul>
       </details>
 
-      <details class="section">
+      <details class="section" open>
         <summary>How To Run</summary>
         <pre class="terminal"><code>npm install
 npm run dev:server
@@ -801,7 +804,7 @@ npm run dev:ui</code></pre>
         </p>
       </details>
 
-      <details class="section span-2">
+      <details class="section span-2" open>
         <summary>Private Source Notes</summary>
         <p class="muted">
           Selected context from the private working README and agent memory, included here as short notes instead of publishing those files.
