@@ -290,7 +290,7 @@
     .section-grid {
       display: grid;
       gap: 18px;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: 1fr;
       margin-top: 12px;
     }
 
@@ -303,7 +303,7 @@
     }
 
     .section.span-2 {
-      grid-column: span 2;
+      grid-column: 1 / -1;
     }
 
     .section.full {
@@ -431,6 +431,54 @@
       grid-template-columns: 22px 1fr;
       margin: 0;
       padding: 10px;
+    }
+
+    .proof-carousel {
+      display: grid;
+      gap: 12px;
+      grid-auto-columns: minmax(280px, calc((100% - 24px) / 3));
+      grid-auto-flow: column;
+      margin-top: 14px;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      padding: 2px 2px 14px;
+      scroll-snap-type: inline mandatory;
+    }
+
+    .proof-shot {
+      background: #fffaf4;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      min-width: 0;
+      overflow: hidden;
+      scroll-snap-align: start;
+    }
+
+    .proof-shot img {
+      aspect-ratio: 2400 / 1546;
+      background: #f6eadb;
+      border-bottom: 1px solid var(--line);
+      display: block;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .proof-shot figcaption {
+      padding: 11px 12px 13px;
+    }
+
+    .proof-shot strong {
+      display: block;
+      font-size: 0.92rem;
+      line-height: 1.25;
+      margin-bottom: 4px;
+    }
+
+    .proof-shot span {
+      color: var(--muted);
+      display: block;
+      font-size: 0.84rem;
+      line-height: 1.35;
     }
 
     .check {
@@ -563,7 +611,7 @@
 
       .section.span-2,
       .section.full {
-        grid-column: auto;
+        grid-column: 1 / -1;
       }
 
       .inspiration {
@@ -696,6 +744,57 @@
           <li><span class="check">OK</span><span>Run folders preserve prompts, streamed events, drafts, approvals, audits, and outputs.</span></li>
           <li><span class="check">OK</span><span>Mock mode can test the workflow without an API key.</span></li>
         </ul>
+      </details>
+
+      <details class="section full" open>
+        <summary>Development Proof Screenshots</summary>
+        <p class="muted">
+          Current V1 screens from the local scaffold. Scroll sideways to scan the workflow proof; desktop view shows three images at a time.
+        </p>
+        <div class="proof-carousel" aria-label="Development proof screenshots">
+          <figure class="proof-shot">
+            <img src="assets/screenshots/project-picker.png" alt="Author Workbench project picker screen">
+            <figcaption>
+              <strong>Project picker</strong>
+              <span>Loads a local author project folder before any run starts.</span>
+            </figcaption>
+          </figure>
+          <figure class="proof-shot">
+            <img src="assets/screenshots/dashboard.png" alt="Author Workbench project dashboard screen">
+            <figcaption>
+              <strong>Dashboard</strong>
+              <span>Shows project status, files, actions, and recent run evidence.</span>
+            </figcaption>
+          </figure>
+          <figure class="proof-shot">
+            <img src="assets/screenshots/workflow-runner.png" alt="Author Workbench workflow runner screen">
+            <figcaption>
+              <strong>Workflow runner</strong>
+              <span>Selects an action, input, provider, and previewable prompt path.</span>
+            </figcaption>
+          </figure>
+          <figure class="proof-shot">
+            <img src="assets/screenshots/live-run-paused.png" alt="Author Workbench live run paused screen">
+            <figcaption>
+              <strong>Live streamed run</strong>
+              <span>Streams events and pauses after draft generation for author review.</span>
+            </figcaption>
+          </figure>
+          <figure class="proof-shot">
+            <img src="assets/screenshots/review-draft.png" alt="Author Workbench review draft screen">
+            <figcaption>
+              <strong>Review gate</strong>
+              <span>The author can edit or approve draft text before downstream audit.</span>
+            </figcaption>
+          </figure>
+          <figure class="proof-shot">
+            <img src="assets/screenshots/audit-results.png" alt="Author Workbench audit results screen">
+            <figcaption>
+              <strong>Audit results</strong>
+              <span>Completed runs preserve generated output and supporting artifacts.</span>
+            </figcaption>
+          </figure>
+        </div>
       </details>
 
       <details class="section" open>
