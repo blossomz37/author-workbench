@@ -851,7 +851,7 @@
           This public snapshot is intentionally small. It is a shareable check-in for friends comparing parallel approaches, not the full working source repo.
         </p>
         <p class="muted" style="margin-top: 14px;">
-          Current status: V1 scaffold and workflow proof. The core loop can load files, assemble prompts, stream output, pause for review, resume to audit, and save the evidence locally.
+          Current status: V1 compatibility proof. The core loop can load files, assemble prompts, stream output, pause for review, recover paused runs, cancel active runs, resume to audit, and save the evidence locally.
         </p>
       </details>
 
@@ -921,7 +921,7 @@
           <li><span class="check">API</span><span>Open or validate a project with <code>GET /api/project?path=...</code>.</span></li>
           <li><span class="check">API</span><span>Preview assembled prompts with <code>POST /api/prompt/preview</code>.</span></li>
           <li><span class="check">SSE</span><span>Start and watch workflow runs with <code>GET /api/stream?...</code> and a streaming client like <code>curl -N</code>.</span></li>
-          <li><span class="check">API</span><span>Approve edited drafts with <code>POST /api/run/approve</code>, or cancel paused runs with <code>POST /api/run/cancel</code>.</span></li>
+          <li><span class="check">API</span><span>Approve edited drafts with <code>POST /api/run/approve</code>, recover paused runs with <code>GET /api/run/detail</code>, or cancel paused/active runs with <code>POST /api/run/cancel</code>.</span></li>
           <li><span class="check">FILES</span><span>Inspect completed work by reading the timestamped local <code>runs/</code> folder.</span></li>
         </ul>
       </details>

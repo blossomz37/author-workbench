@@ -545,53 +545,56 @@
         <p class="eyebrow">Author Workbench V1 status board</p>
         <h1 id="page-title">What is done, what is next</h1>
         <p class="subtitle">
-          A working board for the V1 compatibility proof: local files, prompt assembly, provider streaming, author review, saved output, and the final hardening needed before calling the spec complete.
+          A working board for the V1 compatibility proof: local files, prompt assembly, provider streaming, author review, saved output, active cancel, paused-run recovery, and regression evidence.
         </p>
       </div>
 
       <aside class="status-panel" aria-label="Completion estimate">
         <div class="meter-wrap">
-          <div class="meter" style="--value: 92">
-            <strong>92%</strong>
+          <div class="meter" style="--value: 100">
+            <strong>100%</strong>
             <span>complete</span>
           </div>
           <div class="score-lines">
             <div class="score-line">
               <span>Core</span>
-              <div class="bar" style="--bar-width: 94%"><i></i></div>
-              <span>94%</span>
+              <div class="bar" style="--bar-width: 100%"><i></i></div>
+              <span>100%</span>
             </div>
             <div class="score-line">
               <span>UI</span>
-              <div class="bar" style="--bar-width: 84%"><i></i></div>
-              <span>84%</span>
+              <div class="bar" style="--bar-width: 100%"><i></i></div>
+              <span>100%</span>
             </div>
             <div class="score-line">
               <span>Proofs</span>
-              <div class="bar" style="--bar-width: 90%"><i></i></div>
-              <span>90%</span>
+              <div class="bar" style="--bar-width: 100%"><i></i></div>
+              <span>100%</span>
             </div>
             <div class="score-line">
               <span>Polish</span>
-              <div class="bar" style="--bar-width: 68%"><i></i></div>
-              <span>68%</span>
+              <div class="bar" style="--bar-width: 100%"><i></i></div>
+              <span>100%</span>
             </div>
           </div>
         </div>
         <div class="status-summary" aria-label="Work item summary">
           <div class="summary-stat done">
-            <strong>9</strong>
+            <strong>11</strong>
             <span>done</span>
           </div>
           <div class="summary-stat partial">
-            <strong>1</strong>
+            <strong>0</strong>
             <span>need proof</span>
           </div>
           <div class="summary-stat open">
-            <strong>1</strong>
+            <strong>0</strong>
             <span>open</span>
           </div>
         </div>
+        <p class="muted" style="margin: 18px 0 0; font-size: 0.82rem;">
+          Last updated 2026-05-22. Evidence: <code>npm run smoke:review</code>, <code>npm run smoke:reliability</code>, <code>npm run smoke:regressions</code>, and UI check.
+        </p>
       </aside>
     </section>
 
@@ -672,13 +675,13 @@
             <div class="card-meta"><span class="pill">FR-009</span><span class="pill">Test 10</span><span class="pill">smoke</span></div>
           </article>
 
-          <article class="work-card" data-status="partial" data-tags="cancel reconnect long run failure behavior">
+          <article class="work-card" data-status="done" data-tags="cancel reconnect long run failure behavior paused recovery reliability smoke test">
             <div class="card-head">
               <strong>Cancel and reconnect behavior</strong>
-              <span class="badge partial">Needs definition</span>
+              <span class="badge done">Done</span>
             </div>
-            <p>Cancel exists for paused runs. Minimum behavior for reconnects, failed approval continuation, and long-running sessions still needs a V1 decision.</p>
-            <div class="card-meta"><span class="pill">reliability</span><span class="pill">scope</span></div>
+            <p>Active draft/audit cancel persists run evidence. Paused runs can be recovered from dashboard history; live token-stream reattach is a post-V1 deferral.</p>
+            <div class="card-meta"><span class="pill">reliability</span><span class="pill">smoke</span></div>
           </article>
 
           <article class="work-card" data-status="done" data-tags="smoke test fixture validator automated checklist">
@@ -699,12 +702,12 @@
             <div class="card-meta"><span class="pill">agents</span><span class="pill">publishing</span></div>
           </article>
 
-          <article class="work-card" data-status="open" data-tags="readme docs final acceptance deferrals">
+          <article class="work-card" data-status="done" data-tags="readme docs final acceptance deferrals">
             <div class="card-head">
               <strong>Final README and deferral notes</strong>
-              <span class="badge open">Open</span>
+              <span class="badge done">Done</span>
             </div>
-            <p>The README should match the final acceptance flow and clearly mark what V1 proves versus what is deferred.</p>
+            <p>The README and product docs now describe the proven V1 flow, smoke commands, and post-V1 deferrals.</p>
             <div class="card-meta"><span class="pill">docs</span><span class="pill">release</span></div>
           </article>
         </div>
@@ -716,20 +719,20 @@
         <div class="next-actions">
           <div class="action">
             <div>
-              <strong>Define cancel and reconnect behavior.</strong>
-              <p class="muted">Reject and alternate are now explicit; long-running sessions still need a minimum reliability decision.</p>
+              <strong>Tag V1 when ready.</strong>
+              <p class="muted">The compatibility proof is implemented and smoke-tested; tagging is a separate release decision.</p>
             </div>
           </div>
           <div class="action">
             <div>
-              <strong>Tighten final docs.</strong>
-              <p class="muted">Update the README against the acceptance flow and list remaining deferrals before tagging V1.</p>
+              <strong>Plan V1.1 reliability.</strong>
+              <p class="muted">Live stream reattachment, retry policy, and richer long-run recovery remain post-V1 work.</p>
             </div>
           </div>
           <div class="action">
             <div>
               <strong>Wrap the next app-ready skill.</strong>
-              <p class="muted">Use the proven action metadata standard once the remaining regression checks are stable.</p>
+              <p class="muted">Use the proven action metadata standard as V1.1/backlog work, not a V1 blocker.</p>
             </div>
           </div>
         </div>
@@ -747,10 +750,11 @@
           <label class="check-row"><input type="checkbox" checked data-id="outputs-save"><span>Draft and audit outputs save to disk.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="event-logs"><span>Run metadata and event logs persist.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="review-decisions"><span>The author can approve, reject, or save alternate output.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="reliability-smoke"><span>Active cancel and paused-run recovery are covered by a repeatable smoke test.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="scripted-smoke"><span>A scripted mock review-decision smoke test passes.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="failure-regressions"><span>Missing-file and provider-error regressions are covered by a repeatable smoke test.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="session-closeout"><span>The repo has a project-specific end-session workflow.</span></label>
-          <label class="check-row"><input type="checkbox" data-id="readme-proof"><span>The README explains how to run the proof and what V1 does not claim.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="readme-proof"><span>The README explains how to run the proof and what V1 does not claim.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="honest-scope"><span>The app does not pretend to be more complete than it is.</span></label>
         </div>
       </section>
@@ -763,12 +767,12 @@
             <span class="muted">Local files, prompt assembly, streaming, review gate, saved output, and API-level parity all work together.</span>
           </div>
           <div class="timeline-item">
-            <strong>Acceptance hardening is mostly proven</strong>
-            <span class="muted">Review decisions, missing-file failures, and provider-error runs are script-verified. Remaining work is focused on reliability decisions and final deferrals.</span>
+            <strong>Acceptance hardening is proven</strong>
+            <span class="muted">Review decisions, active cancel, paused recovery, missing-file failures, and provider-error runs are script-verified.</span>
           </div>
           <div class="timeline-item">
-            <strong>V1 tag after final proof</strong>
-            <span class="muted">Once regression checks and remaining deferrals are handled, the spec can close cleanly.</span>
+            <strong>V1 tag is a release choice</strong>
+            <span class="muted">The remaining work is packaging/release ceremony, not a missing V1 proof item.</span>
           </div>
         </div>
       </section>
