@@ -1,10 +1,10 @@
 <!doctype html>
 <!--
   File: IMPLEMENTATION_TRACKING.html
-  Description: Local implementation tracking page for Author Workbench.
-  Version: 0.2.0
+  Description: Implementation tracking page for Author Workbench.
+  Version: 0.3.0
   Created: 2026-05-22
-  Modified: 2026-05-22
+  Modified: 2026-05-23
   Author: Carlo / Codex
 -->
 <html lang="en">
@@ -315,7 +315,7 @@
         <p class="eyebrow">Implementation tracking</p>
         <h1>V1.1 build board</h1>
         <p class="subtitle">
-          A compact visual board for the current working state: what landed, what is next, what is blocked by a decision, and what needs careful watching.
+          A compact visual board for the current working state: reliability, multi-phase workflows, overhaul action contracts, prompt editing, and what still needs careful watching.
         </p>
       </div>
 
@@ -324,19 +324,19 @@
         <div class="summary-grid">
           <div class="summary-stat">
             <strong>M1</strong>
-            <span>reliability active</span>
+            <span>reliability green</span>
           </div>
           <div class="summary-stat">
-            <strong>4</strong>
+            <strong>6</strong>
             <span>smoke gates green</span>
           </div>
           <div class="summary-stat">
-            <strong>1</strong>
-            <span>server API added</span>
+            <strong>5</strong>
+            <span>overhaul actions</span>
           </div>
           <div class="summary-stat">
-            <strong>2+</strong>
-            <span>skills still open</span>
+            <strong>8</strong>
+            <span>selectable passes</span>
           </div>
         </div>
       </aside>
@@ -360,19 +360,29 @@
           <strong>Provider retry wrapper</strong>
           <span>Transient provider failures retry twice; fatal failures remain visible and immediate.</span>
         </div>
+        <div class="card done">
+          <span class="tag">done</span>
+          <strong>Multi-phase runner</strong>
+          <span>Actions can execute ordered phases, pause at review gates, and resume from approved phase output.</span>
+        </div>
+        <div class="card done">
+          <span class="tag">done</span>
+          <strong>Overhaul workflow contracts</strong>
+          <span>Visible overhaul buttons now map to explicit templates, phases, checkpoints, run-to-phase controls, and review decisions.</span>
+        </div>
       </div>
 
       <div class="column">
         <h2>Next</h2>
         <div class="card next">
           <span class="tag">next</span>
-          <strong>Svelte auto-reattach</strong>
-          <span>Persist active run ID and last event index, then call the reattach endpoint after reload.</span>
+          <strong>Prompt edit diff/revert</strong>
+          <span>The app can edit project prompt templates and create backups; a visible diff/revert layer is still a useful follow-up.</span>
         </div>
         <div class="card next">
           <span class="tag">next</span>
-          <strong>Visible retry state</strong>
-          <span>Surface <code>provider_retry</code> events in the live UI timeline so failures feel recoverable, not mysterious.</span>
+          <strong>Large context strategy</strong>
+          <span>Whole-manuscript and dossier runs currently concatenate selected inputs; chunking and summarization remain future work.</span>
         </div>
         <div class="card next">
           <span class="tag">next</span>
@@ -385,8 +395,8 @@
         <h2>Needs Decision</h2>
         <div class="card">
           <span class="tag">open</span>
-          <strong>Which skills get wrapped?</strong>
-          <span>FR-018 requires at least two more author skills. Current spec keeps the choice open for Carlo.</span>
+          <strong>Which skill after overhaul?</strong>
+          <span>Manuscript Overhaul now has an app surface. The next app-ready skill choice is still open.</span>
         </div>
         <div class="card">
           <span class="tag">open</span>
@@ -399,18 +409,18 @@
         <h2>Watch</h2>
         <div class="card risk">
           <span class="tag">risk</span>
-          <strong>Double execution</strong>
-          <span>Reattachment must never re-run provider calls or create duplicate run folders.</span>
+          <strong>Long prompt context</strong>
+          <span>Full manuscript and dossier actions can exceed provider context limits until a chunking layer exists.</span>
         </div>
         <div class="card risk">
           <span class="tag">risk</span>
-          <strong>Terminal event shape</strong>
-          <span>Errored runs need both visible error events and a final run folder event when the folder exists.</span>
+          <strong>Prompt edits are direct file writes</strong>
+          <span>Template editing is path-guarded and backed up, but user-friendly restore controls are not built yet.</span>
         </div>
         <div class="card risk">
           <span class="tag">risk</span>
           <strong>Docs boundary</strong>
-          <span>These local V1.1 pages should not be published until the public snapshot allowlist expands.</span>
+          <span>Only public-safe HTML summaries should be published; private notes, source code, run outputs, and manuscript text stay out.</span>
         </div>
       </div>
     </section>
@@ -423,7 +433,8 @@
         <div class="check"><i>✓</i><span><code>npm run smoke:regressions</code> for missing-file and provider-error behavior.</span></div>
         <div class="check"><i>✓</i><span><code>npm run smoke:review</code> for approve, reject, and save-as-alternate.</span></div>
         <div class="check"><i>✓</i><span><code>npm run smoke:reliability</code> for cancel and paused-run recovery.</span></div>
-        <div class="check"><i>✓</i><span>Local docs updated only; public publish remains a separate step.</span></div>
+        <div class="check"><i>✓</i><span><code>npm run smoke:multi-phase</code> for overhaul action contracts and checkpoint continuation.</span></div>
+        <div class="check"><i>✓</i><span><code>npm run smoke:overhaul-ui</code> for Playwright workflow controls, prompt editing, and checkpoint screenshots.</span></div>
       </div>
     </section>
 

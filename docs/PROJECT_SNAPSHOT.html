@@ -2,9 +2,9 @@
 <!--
   File: PROJECT_SNAPSHOT.html
   Description: Friendly HTML snapshot for collaborators comparing parallel novel-builder experiments.
-  Version: 0.1.0
+  Version: 0.2.0
   Created: 2026-05-22
-  Modified: 2026-05-22
+  Modified: 2026-05-23
   Author: Carlo / Codex
 -->
 <html lang="en">
@@ -796,7 +796,7 @@
         <p class="eyebrow">Project check-in for parallel builders</p>
         <h1 id="snapshot-title">Author Workbench</h1>
         <p class="subtitle">
-          A local-first author workflow app for drafting scenes, pausing for author review, auditing approved text, and saving every run as visible local evidence.
+          A local-first author workflow app for drafting, reviewing, auditing, and running multi-phase author workflows with visible prompts, checkpoints, and saved local evidence.
         </p>
       </div>
 
@@ -818,13 +818,13 @@
             <div class="mini-lines"><span></span><span></span><span></span></div>
           </div>
           <div class="mini-card wide">
-            <span class="snapshot-date">Snapshot: 2026-05-22</span>
+            <span class="snapshot-date">Snapshot: 2026-05-23</span>
             <div class="flow" aria-label="Draft review audit flow">
-              <span>Draft</span>
+              <span>Prompt</span>
               <b>to</b>
               <span>Review</span>
               <b>to</b>
-              <span>Audit</span>
+              <span>Checkpoint</span>
             </div>
           </div>
           <div class="mini-card">
@@ -845,13 +845,13 @@
       <details class="section span-2" open>
         <summary>Quick Overview</summary>
         <p>
-          Author Workbench is a local-first author workflow app for testing AI-assisted fiction workflows. It loads author project files, assembles prompts, streams mock or OpenAI output, pauses for human review, and saves each run as local evidence.
+          Author Workbench is a local-first author workflow app for testing AI-assisted fiction workflows. It loads author project files, assembles prompts, streams mock or OpenAI output, pauses for human review or checkpoints, and saves each run as local evidence.
         </p>
         <p class="muted">
           This public snapshot is intentionally small. It is a shareable check-in for friends comparing parallel approaches, not the full working source repo.
         </p>
         <p class="muted" style="margin-top: 14px;">
-          Current status: V1 compatibility proof. The core loop can load files, assemble prompts, stream output, pause for review, recover paused runs, cancel active runs, resume to audit, and save the evidence locally.
+          Current status: V1 compatibility proof plus V1.1 workflow hardening. The app can load files, assemble prompts, stream output, pause for review, recover paused runs, cancel active runs, resume through multi-phase workflows, stop at checkpoints, and save evidence locally.
         </p>
       </details>
 
@@ -890,10 +890,10 @@
         <summary>Workflow Model</summary>
         <pre class="terminal"><code>Project files
   -> prompt assembly
-  -> streamed draft
-  -> author review
-  -> approved text
-  -> streamed audit
+  -> streamed phase
+  -> author review or checkpoint
+  -> approved phase context
+  -> next phase or synthesis
   -> saved run evidence</code></pre>
       </details>
 
@@ -905,6 +905,9 @@
           <li><span class="check">OK</span><span>Handlebars templates assemble draft, audit, and skill-backed prompts.</span></li>
           <li><span class="check">OK</span><span>Run folders preserve prompts, streamed events, drafts, approvals, audits, and outputs.</span></li>
           <li><span class="check">OK</span><span>A draft run can pause for human approval and then resume into an audit run.</span></li>
+          <li><span class="check">OK</span><span>Multi-phase actions can run ordered phases, pause at review gates, and resume with approved phase output.</span></li>
+          <li><span class="check">OK</span><span>Run-to-phase can stop at a checkpoint and continue later without treating the checkpoint as an approval gate.</span></li>
+          <li><span class="check">OK</span><span>Project prompt templates can be edited through the UI with path checks and timestamped backups.</span></li>
           <li><span class="check">OK</span><span>Mock mode can test the workflow without an API key.</span></li>
         </ul>
       </details>
@@ -921,7 +924,8 @@
           <li><span class="check">API</span><span>Open or validate a project with <code>GET /api/project?path=...</code>.</span></li>
           <li><span class="check">API</span><span>Preview assembled prompts with <code>POST /api/prompt/preview</code>.</span></li>
           <li><span class="check">SSE</span><span>Start and watch workflow runs with <code>GET /api/stream?...</code> and a streaming client like <code>curl -N</code>.</span></li>
-          <li><span class="check">API</span><span>Approve edited drafts with <code>POST /api/run/approve</code>, recover paused runs with <code>GET /api/run/detail</code>, or cancel paused/active runs with <code>POST /api/run/cancel</code>.</span></li>
+          <li><span class="check">API</span><span>Approve edited drafts with <code>POST /api/run/approve</code>, continue checkpointed runs with <code>POST /api/run/continue</code>, recover paused runs with <code>GET /api/run/detail</code>, or cancel paused/active runs with <code>POST /api/run/cancel</code>.</span></li>
+          <li><span class="check">API</span><span>Load and save editable project prompt templates through guarded <code>/api/prompt/template</code> routes.</span></li>
           <li><span class="check">FILES</span><span>Inspect completed work by reading the timestamped local <code>runs/</code> folder.</span></li>
         </ul>
       </details>
@@ -1033,12 +1037,14 @@
           <span class="chip rose">Svelte 5 + Vite</span>
           <span class="chip gold">Server-Sent Events</span>
           <span class="chip teal">Handlebars prompts</span>
+          <span class="chip blue">Multi-phase actions</span>
+          <span class="chip gold">Workflow contracts</span>
           <span class="chip blue">Mock + OpenAI</span>
           <span class="chip rose">Local run folders</span>
           <span class="chip gold">No database in V1</span>
         </div>
         <p class="muted" style="margin-top: 14px;">
-          Express runs on <code>localhost:3777</code>. Vite runs on <code>localhost:5173</code> and proxies <code>/api/*</code> to the server. Project context comes from <code>project.yaml</code>, Markdown files, and Handlebars templates.
+          Express runs on <code>localhost:3777</code>. Vite runs on <code>localhost:5173</code> and proxies <code>/api/*</code> to the server. Project context comes from <code>project.yaml</code>, Markdown files, Handlebars templates, and explicit action workflow contracts.
         </p>
       </details>
 
@@ -1054,7 +1060,7 @@
       <details class="section full" open>
         <summary>What Changed Recently</summary>
         <p class="muted">
-          The project started as a single draft-and-audit proof. It now has a small app-action layer so different author workflows can become visible, testable actions.
+          The project started as a single draft-and-audit proof. It now has a small app-action layer so different author workflows can become visible, testable actions with their own inputs, prompts, phases, and pause behavior.
         </p>
         <div class="timeline">
           <div class="timeline-item">
@@ -1063,7 +1069,7 @@
           </div>
           <div class="timeline-item">
             <strong>Runner types now exist</strong>
-            <span class="muted"><code>draft-and-audit</code>, <code>single-step</code>, and <code>skill-template</code>.</span>
+            <span class="muted"><code>draft-and-audit</code>, <code>single-step</code>, <code>skill-template</code>, and <code>multi-phase</code>.</span>
           </div>
           <div class="timeline-item">
             <strong>Strict schema validation</strong>
@@ -1073,6 +1079,14 @@
             <strong>Action metadata lives in project files</strong>
             <span class="muted">For now, each project's actions are declared in <code>project.yaml</code>.</span>
           </div>
+          <div class="timeline-item">
+            <strong>Manuscript Overhaul app surface added</strong>
+            <span class="muted">The app now exposes manuscript modular, manuscript full, dossier modular, and dossier full overhaul variants.</span>
+          </div>
+          <div class="timeline-item">
+            <strong>Visible actions map to workflow contracts</strong>
+            <span class="muted">Each overhaul action declares its templates, phases, review behavior, checkpoint support, and prompt editing surface.</span>
+          </div>
         </div>
       </details>
 
@@ -1081,6 +1095,7 @@
         <ul>
           <li><code>specforge</code>: Turns fuzzy app or workflow ideas into evidence-backed build specs.</li>
           <li><code>skill-to-app-wizard</code>: WIP method for converting a readable agent skill into a testable app action.</li>
+          <li><code>manuscript-overhaul-plan</code>: Evidence-backed manuscript or story dossier overhaul planning, now represented by app action variants.</li>
           <li><code>express-svelte-monorepo</code>: Scaffold pattern for the current full-stack shape.</li>
           <li><code>sse-streaming</code>: Reusable SSE event and streaming patterns for Express and browser clients.</li>
           <li><code>svelte5-rune-store</code>: Shared Svelte 5 state pattern using rune-backed getter/setter functions.</li>
@@ -1106,9 +1121,9 @@
       <details class="section" open>
         <summary>Still Open</summary>
         <ul>
-          <li>Anthropic provider adapter.</li>
-          <li>Large dossier and context-window limits.</li>
-          <li>Multiple approval gates.</li>
+          <li>Large manuscript/dossier context-window limits.</li>
+          <li>Chunking or summarization for whole-manuscript runs.</li>
+          <li>Prompt edit diff/revert UI.</li>
           <li><code>project.yaml</code> vs <code>actions.yaml</code>.</li>
           <li>Which real skills to wrap next.</li>
           <li>How polished the UI needs to become before this is useful beyond internal testing.</li>

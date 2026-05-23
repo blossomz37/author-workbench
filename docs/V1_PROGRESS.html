@@ -2,9 +2,9 @@
 <!--
   File: V1_PROGRESS.html
   Description: Interactive V1 completion board for Author Workbench.
-  Version: 0.1.0
+  Version: 0.2.0
   Created: 2026-05-22
-  Modified: 2026-05-22
+  Modified: 2026-05-23
   Author: Carlo / Codex
 -->
 <html lang="en">
@@ -549,7 +549,7 @@
         <p class="eyebrow">Author Workbench V1 status board</p>
         <h1 id="page-title">What is done, what is next</h1>
         <p class="subtitle">
-          A working board for the V1 compatibility proof: local files, prompt assembly, provider streaming, author review, saved output, active cancel, paused-run recovery, and regression evidence.
+          A working board for the V1 compatibility proof and follow-on hardening: local files, prompt assembly, provider streaming, author review, saved output, active cancel, paused-run recovery, multi-phase actions, and regression evidence.
         </p>
       </div>
 
@@ -584,7 +584,7 @@
         </div>
         <div class="status-summary" aria-label="Work item summary">
           <div class="summary-stat done">
-            <strong>11</strong>
+            <strong>13</strong>
             <span>done</span>
           </div>
           <div class="summary-stat partial">
@@ -597,7 +597,7 @@
           </div>
         </div>
         <p class="muted" style="margin: 18px 0 0; font-size: 0.82rem;">
-          Last updated 2026-05-22. Evidence: <code>npm run smoke:review</code>, <code>npm run smoke:reliability</code>, <code>npm run smoke:regressions</code>, and UI check.
+          Last updated 2026-05-23. Evidence: <code>smoke:review</code>, <code>smoke:reliability</code>, <code>smoke:regressions</code>, <code>smoke:resume</code>, <code>smoke:multi-phase</code>, and <code>smoke:overhaul-ui</code>.
         </p>
       </aside>
     </section>
@@ -657,8 +657,26 @@
               <strong>App-action layer</strong>
               <span class="badge done">Done</span>
             </div>
-            <p>Supports <code>draft-and-audit</code>, <code>single-step</code>, and <code>skill-template</code> actions with strict schema validation.</p>
+            <p>Supports <code>draft-and-audit</code>, <code>single-step</code>, <code>skill-template</code>, and <code>multi-phase</code> actions with strict schema validation.</p>
             <div class="card-meta"><span class="pill">actions</span><span class="pill">schema</span></div>
+          </article>
+
+          <article class="work-card" data-status="done" data-tags="multi phase workflow runner review gates checkpoint run to phase">
+            <div class="card-head">
+              <strong>Multi-phase workflow runner</strong>
+              <span class="badge done">Done</span>
+            </div>
+            <p>Ordered action phases can stream, save phase artifacts, pause for review, resume with approved output, or stop at a checkpoint.</p>
+            <div class="card-meta"><span class="pill">multi-phase</span><span class="pill">checkpoint</span></div>
+          </article>
+
+          <article class="work-card" data-status="done" data-tags="manuscript dossier overhaul variants prompt editing workflow contracts">
+            <div class="card-head">
+              <strong>Overhaul workflow contracts</strong>
+              <span class="badge done">Done</span>
+            </div>
+            <p>Manuscript and dossier overhaul actions now have explicit templates, phase sequences, input modes, pass selection, prompt editing, and run-to-phase controls.</p>
+            <div class="card-meta"><span class="pill">overhaul</span><span class="pill">contracts</span></div>
           </article>
 
           <article class="work-card" data-status="done" data-tags="human review approve reject alternate decision">
@@ -684,7 +702,7 @@
               <strong>Cancel and reconnect behavior</strong>
               <span class="badge done">Done</span>
             </div>
-            <p>Active draft/audit cancel persists run evidence. Paused runs can be recovered from dashboard history; live stream reattach is a post-V1 deferral.</p>
+            <p>Active draft/audit cancel persists run evidence. Paused runs can be recovered from dashboard history, and active streams can reattach by run ID and event index.</p>
             <div class="card-meta"><span class="pill">reliability</span><span class="pill">smoke</span></div>
           </article>
 
@@ -723,14 +741,14 @@
         <div class="next-actions">
           <div class="action">
             <div>
-              <strong>Tag V1 when ready.</strong>
-              <p class="muted">The compatibility proof is implemented and smoke-tested; tagging is a separate release decision.</p>
+              <strong>Test real provider behavior carefully.</strong>
+              <p class="muted">Whole-manuscript and dossier prompts are now possible, but context limits are still allowed to surface as provider errors.</p>
             </div>
           </div>
           <div class="action">
             <div>
-              <strong>Plan V1.1 reliability.</strong>
-              <p class="muted">Live stream reattachment, retry policy, and richer long-run recovery remain post-V1 work.</p>
+              <strong>Add prompt diff/revert.</strong>
+              <p class="muted">Prompt editing creates timestamped backups; a visible restore path would make the feature safer for daily use.</p>
             </div>
           </div>
           <div class="action">
@@ -757,6 +775,8 @@
           <label class="check-row"><input type="checkbox" checked data-id="reliability-smoke"><span>Active cancel and paused-run recovery are covered by a repeatable smoke test.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="scripted-smoke"><span>A scripted mock review-decision smoke test passes.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="failure-regressions"><span>Missing-file and provider-error regressions are covered by a repeatable smoke test.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="multi-phase-runner"><span>Multi-phase actions, review gates, and checkpoint continuation are covered by a repeatable smoke test.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="overhaul-ui"><span>Overhaul workflow controls and prompt editing are covered by a Playwright smoke test.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="session-closeout"><span>The repo has a project-specific end-session workflow.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="readme-proof"><span>The README explains how to run the proof and what V1 does not claim.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="honest-scope"><span>The app does not pretend to be more complete than it is.</span></label>
@@ -775,8 +795,8 @@
             <span class="muted">Review decisions, active cancel, paused recovery, missing-file failures, and provider-error runs are script-verified.</span>
           </div>
           <div class="timeline-item">
-            <strong>V1 tag is a release choice</strong>
-            <span class="muted">The remaining work is packaging/release ceremony, not a missing V1 proof item.</span>
+            <strong>V1.1 workflow proof is now visible</strong>
+            <span class="muted">The app can run multi-phase skill-backed actions with input variants, pass selection, checkpointing, and safe prompt editing.</span>
           </div>
         </div>
       </section>

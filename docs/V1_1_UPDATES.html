@@ -1,10 +1,10 @@
 <!doctype html>
 <!--
   File: V1_1_UPDATES.html
-  Description: Local V1.1 updates page for Author Workbench.
-  Version: 0.2.0
+  Description: V1.1 updates page for Author Workbench.
+  Version: 0.3.0
   Created: 2026-05-22
-  Modified: 2026-05-22
+  Modified: 2026-05-23
   Author: Carlo / Codex
 -->
 <html lang="en">
@@ -274,9 +274,9 @@
     <section class="hero">
       <div>
         <p class="eyebrow">Author Workbench V1.1</p>
-        <h1>Reliability work is underway</h1>
+        <h1>Workflow contracts are live</h1>
         <p class="subtitle">
-          V1.1 is now anchored to three tracks: reliability and resilience, Aurora Prism design implementation, and skill expansion. The first reliability slice is implemented locally and smoke-tested.
+          V1.1 is anchored to reliability and resilience, Aurora Prism design implementation, and skill expansion. The reliability slice is green, and the Manuscript Overhaul skill now has multi-phase actions with explicit workflow contracts.
         </p>
       </div>
 
@@ -285,8 +285,13 @@
         <div class="meter">
           <div class="meter-row">
             <span>M1 Reliability</span>
-            <div class="bar" style="--bar-width: 65%"><i></i></div>
-            <span>active</span>
+            <div class="bar" style="--bar-width: 100%"><i></i></div>
+            <span>green</span>
+          </div>
+          <div class="meter-row">
+            <span>M1 Workflows</span>
+            <div class="bar" style="--bar-width: 85%"><i></i></div>
+            <span>green</span>
           </div>
           <div class="meter-row">
             <span>M2 Design</span>
@@ -304,12 +309,12 @@
             <span>later</span>
           </div>
         </div>
-        <p>Last local update: 2026-05-22. This page reflects the private working repo, not a published release.</p>
+        <p>Last update: 2026-05-23. This page summarizes the private working repo state in public-safe terms.</p>
       </aside>
     </section>
 
     <section class="panel">
-      <h2>What changed in M1</h2>
+      <h2>What changed in V1.1 so far</h2>
       <div class="grid">
         <div class="item done">
           <span class="tag done">done</span>
@@ -326,6 +331,21 @@
           <strong>Smoke gate added</strong>
           <span><code>npm run smoke:resume</code> verifies mid-stream client drop, reattach, run-folder continuity, and mock transient retry evidence.</span>
         </div>
+        <div class="item done">
+          <span class="tag done">done</span>
+          <strong>Multi-phase runner</strong>
+          <span>Actions can execute ordered phases, pause for review, resume with approved phase output, and save phase-level artifacts.</span>
+        </div>
+        <div class="item done">
+          <span class="tag done">done</span>
+          <strong>Overhaul variants</strong>
+          <span>Manuscript and dossier overhaul actions now cover single, multiple, and all-file input modes plus selected pass execution.</span>
+        </div>
+        <div class="item done">
+          <span class="tag done">done</span>
+          <strong>Workflow contracts</strong>
+          <span>Visible actions now declare editable templates, review behavior, checkpoint behavior, run-to-phase support, and supported review decisions.</span>
+        </div>
       </div>
     </section>
 
@@ -335,17 +355,17 @@
         <div class="item done">
           <span class="tag done">passed</span>
           <strong>Existing V1 gates still pass</strong>
-          <span><code>smoke:review</code>, <code>smoke:reliability</code>, and <code>smoke:regressions</code> passed after the stream lifecycle change.</span>
+          <span><code>smoke:review</code>, <code>smoke:reliability</code>, <code>smoke:regressions</code>, and <code>smoke:resume</code> passed after the workflow-contract changes.</span>
         </div>
-        <div class="item next">
-          <span class="tag next">next</span>
-          <strong>UI auto-reattach</strong>
-          <span>The server can reattach now. The Svelte store still needs to persist active run ID and last event index so reload recovery happens automatically.</span>
+        <div class="item done">
+          <span class="tag done">passed</span>
+          <strong>Overhaul proof gates pass</strong>
+          <span><code>smoke:multi-phase</code> and <code>smoke:overhaul-ui</code> cover phase sequencing, prompt preview, checkpointing, and browser workflow controls.</span>
         </div>
         <div class="item open">
           <span class="tag open">open</span>
-          <strong>Skill choices</strong>
-          <span>V1.1 still needs Carlo's call on which two or three additional author skills become app-ready actions.</span>
+          <strong>Large context strategy</strong>
+          <span>Whole-manuscript and dossier inputs are concatenated for now. Chunking or summarization remains a future design decision.</span>
         </div>
       </div>
     </section>
@@ -365,10 +385,18 @@
           <strong>Retry policy selected</strong>
           <span>Retry timeout/network reset/429/5xx-style failures twice. Do not retry bad keys, auth, malformed requests, validation errors, or refusal-style fatal errors.</span>
         </div>
+        <div class="timeline-item">
+          <strong>Manuscript Overhaul surfaced as app actions</strong>
+          <span>The app now models manuscript modular, manuscript full, dossier modular, and dossier full as separate runnable actions.</span>
+        </div>
+        <div class="timeline-item">
+          <strong>Visible actions now require workflow contracts</strong>
+          <span>Each overhaul action maps to its own templates, phases, pause behavior, checkpoint behavior, and UI controls.</span>
+        </div>
       </div>
     </section>
 
-    <p class="footer">Local docs update only. Publishing to the public Author Workbench Pages repo remains a separate approval step.</p>
+    <p class="footer">Public-safe summary. Source code, private project notes, and run outputs are not published here.</p>
   </main>
 </body>
 </html>
