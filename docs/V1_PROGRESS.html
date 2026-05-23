@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <title>Author Workbench V1 Progress</title>
   <style>
     :root {
@@ -149,24 +149,28 @@
       align-items: center;
       aspect-ratio: 1;
       background:
-        radial-gradient(circle, #fffaf4 0 58%, transparent 59%),
+        radial-gradient(circle, #fffaf4 0 66%, transparent 67%),
         conic-gradient(var(--teal) calc(var(--value) * 1%), #efe4d3 0);
       border: 1px solid var(--line);
       border-radius: 50%;
       display: grid;
+      gap: 3px;
       justify-items: center;
-      padding: 20px;
+      padding: 28px 20px;
+      width: 150px;
     }
 
     .meter strong {
-      font-size: 2.2rem;
+      font-size: 1.86rem;
       line-height: 1;
     }
 
     .meter span {
       color: var(--muted);
-      font-size: 0.84rem;
+      font-size: 0.68rem;
       font-weight: 800;
+      letter-spacing: 0.04em;
+      line-height: 1;
       text-transform: uppercase;
     }
 
@@ -680,7 +684,7 @@
               <strong>Cancel and reconnect behavior</strong>
               <span class="badge done">Done</span>
             </div>
-            <p>Active draft/audit cancel persists run evidence. Paused runs can be recovered from dashboard history; live token-stream reattach is a post-V1 deferral.</p>
+            <p>Active draft/audit cancel persists run evidence. Paused runs can be recovered from dashboard history; live stream reattach is a post-V1 deferral.</p>
             <div class="card-meta"><span class="pill">reliability</span><span class="pill">smoke</span></div>
           </article>
 

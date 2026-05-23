@@ -1,0 +1,433 @@
+<!doctype html>
+<!--
+  File: IMPLEMENTATION_TRACKING.html
+  Description: Local implementation tracking page for Author Workbench.
+  Version: 0.2.0
+  Created: 2026-05-22
+  Modified: 2026-05-22
+  Author: Carlo / Codex
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <title>Author Workbench Implementation Tracking</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #27213a;
+      --muted: #6c667d;
+      --paper: #fffaf2;
+      --panel: #ffffff;
+      --line: #ead7bf;
+      --teal: #247c72;
+      --teal-soft: #dbf1ec;
+      --gold: #d5962c;
+      --gold-soft: #fff0cf;
+      --rose: #d95d6a;
+      --rose-soft: #ffe5e8;
+      --blue: #3b6ea8;
+      --blue-soft: #e4effb;
+      --shadow: 0 18px 55px rgba(63, 45, 31, 0.13);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(234, 215, 191, 0.35) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(234, 215, 191, 0.35) 1px, transparent 1px),
+        var(--paper);
+      background-size: 26px 26px;
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration-color: rgba(59, 110, 168, 0.35);
+      text-underline-offset: 3px;
+    }
+
+    code {
+      background: #fff7ec;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: #594126;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+      padding: 0.08rem 0.32rem;
+    }
+
+    .page {
+      margin: 0 auto;
+      max-width: 1180px;
+      padding: 28px 18px 52px;
+    }
+
+    .back {
+      display: inline-flex;
+      font-weight: 850;
+      margin-bottom: 28px;
+    }
+
+    .hero {
+      align-items: stretch;
+      display: grid;
+      gap: 22px;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 0.78fr);
+      margin-bottom: 22px;
+      padding: 24px 0 8px;
+    }
+
+    .eyebrow {
+      color: var(--teal);
+      font-size: 0.78rem;
+      font-weight: 850;
+      margin: 0 0 14px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 7vw, 5rem);
+      line-height: 0.96;
+      margin: 0;
+      max-width: 10ch;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2.3vw, 1.24rem);
+      margin: 20px 0 0;
+      max-width: 730px;
+    }
+
+    .summary {
+      align-self: center;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+    }
+
+    .summary h2 {
+      font-size: 1.12rem;
+      margin: 0;
+    }
+
+    .summary-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .summary-stat {
+      background: #fffaf4;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 11px;
+    }
+
+    .summary-stat strong {
+      color: var(--teal);
+      display: block;
+      font-size: 1.15rem;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .summary-stat span {
+      color: var(--muted);
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .board {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 20px;
+    }
+
+    .column {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+      padding: 14px;
+    }
+
+    .column h2 {
+      font-size: 1rem;
+      margin: 0 0 12px;
+    }
+
+    .card {
+      background: #fffaf4;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--gold);
+      border-radius: 8px;
+      display: grid;
+      gap: 7px;
+      margin-bottom: 10px;
+      padding: 12px;
+    }
+
+    .card.done { border-left-color: var(--teal); }
+    .card.risk { border-left-color: var(--rose); }
+    .card.next { border-left-color: var(--blue); }
+
+    .card strong {
+      display: block;
+      line-height: 1.25;
+    }
+
+    .card span {
+      color: var(--muted);
+    }
+
+    .tag {
+      border-radius: 999px;
+      display: inline-flex;
+      font-size: 0.72rem;
+      font-weight: 900;
+      padding: 4px 8px;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+
+    .done .tag {
+      background: var(--teal-soft);
+      color: #14564f;
+    }
+
+    .next .tag {
+      background: var(--blue-soft);
+      color: #224c7a;
+    }
+
+    .risk .tag {
+      background: var(--rose-soft);
+      color: #8f303b;
+    }
+
+    .card:not(.done):not(.next):not(.risk) .tag {
+      background: var(--gold-soft);
+      color: #6e4b08;
+    }
+
+    .checks {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      margin-top: 16px;
+      padding: 16px;
+    }
+
+    .checks h2 {
+      font-size: 1.05rem;
+      margin: 0 0 12px;
+    }
+
+    .check-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .check {
+      align-items: start;
+      background: #fffaf4;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      display: grid;
+      gap: 8px;
+      grid-template-columns: 22px minmax(0, 1fr);
+      padding: 10px;
+    }
+
+    .check i {
+      align-items: center;
+      background: var(--teal);
+      border-radius: 50%;
+      color: white;
+      display: inline-flex;
+      font-style: normal;
+      font-weight: 900;
+      height: 22px;
+      justify-content: center;
+      line-height: 1;
+      width: 22px;
+    }
+
+    .check span {
+      color: var(--muted);
+    }
+
+    .footer {
+      color: var(--muted);
+      font-size: 0.9rem;
+      padding-top: 22px;
+      text-align: center;
+    }
+
+    @media (max-width: 1000px) {
+      .board {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 860px) {
+      .hero,
+      .board,
+      .check-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <a class="back" href="index.html">Back to docs home</a>
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Implementation tracking</p>
+        <h1>V1.1 build board</h1>
+        <p class="subtitle">
+          A compact visual board for the current working state: what landed, what is next, what is blocked by a decision, and what needs careful watching.
+        </p>
+      </div>
+
+      <aside class="summary" aria-label="Implementation summary">
+        <h2>Current state</h2>
+        <div class="summary-grid">
+          <div class="summary-stat">
+            <strong>M1</strong>
+            <span>reliability active</span>
+          </div>
+          <div class="summary-stat">
+            <strong>4</strong>
+            <span>smoke gates green</span>
+          </div>
+          <div class="summary-stat">
+            <strong>1</strong>
+            <span>server API added</span>
+          </div>
+          <div class="summary-stat">
+            <strong>2+</strong>
+            <span>skills still open</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="board" aria-label="Implementation board">
+      <div class="column">
+        <h2>Done</h2>
+        <div class="card done">
+          <span class="tag">done</span>
+          <strong>V1 compatibility proof</strong>
+          <span>Local files, prompt assembly, streaming, review gates, run evidence, cancel, and paused recovery are proven.</span>
+        </div>
+        <div class="card done">
+          <span class="tag">done</span>
+          <strong>Backend live reattachment</strong>
+          <span>Added a live run buffer and <code>/api/stream/reattach</code> so clients can replay events after a disconnect.</span>
+        </div>
+        <div class="card done">
+          <span class="tag">done</span>
+          <strong>Provider retry wrapper</strong>
+          <span>Transient provider failures retry twice; fatal failures remain visible and immediate.</span>
+        </div>
+      </div>
+
+      <div class="column">
+        <h2>Next</h2>
+        <div class="card next">
+          <span class="tag">next</span>
+          <strong>Svelte auto-reattach</strong>
+          <span>Persist active run ID and last event index, then call the reattach endpoint after reload.</span>
+        </div>
+        <div class="card next">
+          <span class="tag">next</span>
+          <strong>Visible retry state</strong>
+          <span>Surface <code>provider_retry</code> events in the live UI timeline so failures feel recoverable, not mysterious.</span>
+        </div>
+        <div class="card next">
+          <span class="tag">next</span>
+          <strong>Aurora Prism shell</strong>
+          <span>Bring the approved visual direction into the Svelte app after the reliability path is stable.</span>
+        </div>
+      </div>
+
+      <div class="column">
+        <h2>Needs Decision</h2>
+        <div class="card">
+          <span class="tag">open</span>
+          <strong>Which skills get wrapped?</strong>
+          <span>FR-018 requires at least two more author skills. Current spec keeps the choice open for Carlo.</span>
+        </div>
+        <div class="card">
+          <span class="tag">open</span>
+          <strong>Run history depth</strong>
+          <span>Stay file-based unless listing run folders becomes painful; SQLite remains deferred.</span>
+        </div>
+      </div>
+
+      <div class="column">
+        <h2>Watch</h2>
+        <div class="card risk">
+          <span class="tag">risk</span>
+          <strong>Double execution</strong>
+          <span>Reattachment must never re-run provider calls or create duplicate run folders.</span>
+        </div>
+        <div class="card risk">
+          <span class="tag">risk</span>
+          <strong>Terminal event shape</strong>
+          <span>Errored runs need both visible error events and a final run folder event when the folder exists.</span>
+        </div>
+        <div class="card risk">
+          <span class="tag">risk</span>
+          <strong>Docs boundary</strong>
+          <span>These local V1.1 pages should not be published until the public snapshot allowlist expands.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="checks">
+      <h2>Acceptance checks currently green</h2>
+      <div class="check-grid">
+        <div class="check"><i>✓</i><span><code>npm exec --workspace=packages/server -- tsc --noEmit</code></span></div>
+        <div class="check"><i>✓</i><span><code>npm run smoke:resume</code> for reattach and transient retry.</span></div>
+        <div class="check"><i>✓</i><span><code>npm run smoke:regressions</code> for missing-file and provider-error behavior.</span></div>
+        <div class="check"><i>✓</i><span><code>npm run smoke:review</code> for approve, reject, and save-as-alternate.</span></div>
+        <div class="check"><i>✓</i><span><code>npm run smoke:reliability</code> for cancel and paused-run recovery.</span></div>
+        <div class="check"><i>✓</i><span>Local docs updated only; public publish remains a separate step.</span></div>
+      </div>
+    </section>
+
+    <p class="footer">This board is a visual guide for the private working repo state, not a release certificate.</p>
+  </main>
+</body>
+</html>

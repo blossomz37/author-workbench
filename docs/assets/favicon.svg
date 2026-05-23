@@ -1,0 +1,54 @@
+<!--
+file: favicon.svg
+description: Workbench Glyph favicon for the public Author Workbench snapshot.
+version: 0.1.0
+created: 2026-05-22
+modified: 2026-05-22
+author: Carlo
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Author Workbench Glyph</title>
+  <desc id="desc">A rounded technical square with an authoring spark at center.</desc>
+  <defs>
+    <linearGradient id="glyph-accent" x1="14" y1="12" x2="50" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9b6dff"/>
+      <stop offset="0.52" stop-color="#4d8fff"/>
+      <stop offset="1" stop-color="#3dcc8e"/>
+    </linearGradient>
+    <style>
+      :root {
+        color-scheme: dark light;
+      }
+
+      .shell {
+        fill: #0a0d18;
+      }
+
+      .primary {
+        stroke: #e8eaf6;
+      }
+
+      .muted {
+        stroke: #697391;
+      }
+
+      @media (prefers-color-scheme: light) {
+        .shell {
+          fill: #f4f5f9;
+        }
+
+        .primary {
+          stroke: #1a1c2e;
+        }
+
+        .muted {
+          stroke: #727998;
+        }
+      }
+    </style>
+  </defs>
+  <rect class="shell" x="2" y="2" width="60" height="60" rx="14"/>
+  <rect class="primary" x="13" y="13" width="38" height="38" rx="8" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path class="muted" d="M32 14v36M14 32h36" fill="none" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M32 21 35.6 28.4 43 32 35.6 35.6 32 43 28.4 35.6 21 32 28.4 28.4Z" fill="none" stroke="url(#glyph-accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

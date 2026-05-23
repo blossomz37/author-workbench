@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <title>Author Workbench Project Snapshot</title>
   <style>
     :root {
@@ -1086,7 +1086,7 @@
           <li><code>svelte5-rune-store</code>: Shared Svelte 5 state pattern using rune-backed getter/setter functions.</li>
         </ul>
         <p class="muted" style="margin-top: 12px;">
-          Note: <code>skill-to-app-wizard</code> is still under <code>.agents/wip-skills/</code>; the others are under <code>.agents/skills/</code>.
+          Note: <code>skill-to-app-wizard</code> is still experimental; the others are promoted support skills.
         </p>
       </details>
 
@@ -1121,7 +1121,7 @@
 npm run dev:server
 npm run dev:ui</code></pre>
         <p class="muted" style="margin-top: 12px;">
-          Then open <code>http://localhost:5173/</code>. Mock mode works without an API key. OpenAI mode requires <code>OPENAI_API_KEY</code> in the server environment.
+          Then open <code>http://localhost:5173/</code>. Mock mode works without provider credentials. OpenAI mode requires the server-side provider credential to be configured.
         </p>
       </details>
 
