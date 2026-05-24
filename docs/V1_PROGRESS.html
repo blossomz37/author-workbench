@@ -607,7 +607,7 @@
         </div>
         <div class="status-summary" aria-label="Work item summary">
           <div class="summary-stat done">
-            <strong>14</strong>
+            <strong>15</strong>
             <span>done</span>
           </div>
           <div class="summary-stat partial">
@@ -620,7 +620,7 @@
           </div>
         </div>
         <p class="muted" style="margin: 18px 0 0; font-size: 0.82rem;">
-          Last updated 2026-05-24. Evidence: <code>smoke:review</code>, <code>smoke:reliability</code>, <code>smoke:regressions</code>, <code>smoke:resume</code>, <code>smoke:multi-phase</code>, <code>smoke:overhaul-ui</code>, UI workspace checks, and Playwright screenshots for the Aurora Prism M2 route pass.
+          Last updated 2026-05-24. Evidence: <code>smoke:review</code>, <code>smoke:reliability</code>, <code>smoke:regressions</code>, <code>smoke:resume</code>, <code>smoke:multi-phase</code>, <code>smoke:skill-actions</code>, <code>smoke:run-history</code>, <code>smoke:overhaul-ui</code>, UI workspace checks, and Playwright screenshots for the Aurora Prism route pass.
         </p>
       </aside>
     </section>
@@ -711,6 +711,15 @@
             <div class="card-meta"><span class="pill">M2</span><span class="pill">design</span><span class="pill">Svelte</span></div>
           </article>
 
+          <article class="work-card" data-status="done" data-tags="skill expansion grumpy gus prose validation skill actions smoke">
+            <div class="card-head">
+              <strong>FR-018 skill expansion</strong>
+              <span class="badge done">Done</span>
+            </div>
+            <p>Grumpy Gus Chapter Critique and Prose Gate Validation are wrapped as app-ready skill actions with prompt adapters and repeatable smoke coverage.</p>
+            <div class="card-meta"><span class="pill">FR-018</span><span class="pill">skill-template</span><span class="pill">smoke</span></div>
+          </article>
+
           <article class="work-card" data-status="done" data-tags="human review approve reject alternate decision">
             <div class="card-head">
               <strong>Review decisions</strong>
@@ -785,8 +794,8 @@
           </div>
           <div class="action">
             <div>
-              <strong>Choose the next app-ready skills.</strong>
-              <p class="muted">M2 design is now past the route-pass checkpoint, so the next major V1.1 product decision is which 2+ skills should become first-class actions.</p>
+              <strong>Finish V1.1 release hardening.</strong>
+              <p class="muted">M1 reliability, M2 design, M3 run history, and FR-018 skill expansion are complete; the next checkpoint is release-candidate verification and tagging.</p>
             </div>
           </div>
         </div>
@@ -810,6 +819,7 @@
           <label class="check-row"><input type="checkbox" checked data-id="multi-phase-runner"><span>Multi-phase actions, review gates, and checkpoint continuation are covered by a repeatable smoke test.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="overhaul-ui"><span>Overhaul workflow controls and prompt editing are covered by a Playwright smoke test.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="aurora-m2"><span>Aurora Prism M2 route styling has desktop, mobile, and reduced-motion screenshot evidence.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="skill-actions"><span>Two editorial skill-template actions are covered by a repeatable smoke test.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="session-closeout"><span>The repo has a project-specific end-session workflow.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="readme-proof"><span>The README explains how to run the proof and what V1 does not claim.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="honest-scope"><span>The app does not pretend to be more complete than it is.</span></label>
@@ -834,6 +844,10 @@
           <div class="timeline-item">
             <strong>V1.1 M2 design pass landed</strong>
             <span class="muted">Aurora Prism now shapes the live Svelte routes, including stage chips, panels, run output, timeline evidence, review, and mobile stacking.</span>
+          </div>
+          <div class="timeline-item">
+            <strong>V1.1 skill expansion landed</strong>
+            <span class="muted">The app can run Grumpy Gus Chapter Critique and Prose Gate Validation as first-class skill actions.</span>
           </div>
         </div>
       </section>

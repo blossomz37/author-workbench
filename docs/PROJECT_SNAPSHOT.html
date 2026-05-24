@@ -874,7 +874,7 @@
           This public snapshot is intentionally small. It is a shareable check-in for friends comparing parallel approaches, not the full working source repo.
         </p>
         <p class="muted" style="margin-top: 14px;">
-          Current status: V1 compatibility proof plus V1.1 reliability, workflow, and design hardening. The app can load files, assemble prompts, stream output, pause for review, recover paused runs, cancel active runs, resume through multi-phase workflows, stop at checkpoints, save evidence locally, and present the core routes in the Aurora Prism M2 visual system.
+          Current status: V1 compatibility proof plus V1.1 release-candidate hardening. The app can load files, assemble prompts, stream output, pause for review, recover paused runs, cancel active runs, reattach to live streams, resume through multi-phase workflows, stop at checkpoints, browse run history, run wrapped editorial skill actions, save evidence locally, and present the core routes in the Aurora Prism visual system.
         </p>
       </details>
 
@@ -932,6 +932,7 @@
           <li><span class="check">OK</span><span>Run-to-phase can stop at a checkpoint and continue later without treating the checkpoint as an approval gate.</span></li>
           <li><span class="check">OK</span><span>Project prompt templates can be edited through the UI with path checks and timestamped backups.</span></li>
           <li><span class="check">OK</span><span>The Aurora Prism M2 route pass is implemented across project opening, dashboard, runner, live run, review/results, and settings screens.</span></li>
+          <li><span class="check">OK</span><span>Two editorial skill actions are wrapped as first-class app actions and covered by a repeatable skill-action smoke gate.</span></li>
           <li><span class="check">OK</span><span>Mock mode can test the workflow without an API key.</span></li>
         </ul>
       </details>
@@ -1115,6 +1116,10 @@
             <strong>Aurora Prism M2 route pass landed</strong>
             <span class="muted">The live app shell and core routes now share stage-reactive panels, run output, timeline evidence, review, and mobile layout primitives.</span>
           </div>
+          <div class="timeline-item">
+            <strong>Skill expansion landed</strong>
+            <span class="muted">Grumpy Gus Chapter Critique and Prose Gate Validation now run as app-ready editorial skill actions.</span>
+          </div>
         </div>
       </details>
 
@@ -1124,6 +1129,7 @@
           <li><code>specforge</code>: Turns fuzzy app or workflow ideas into evidence-backed build specs.</li>
           <li><code>skill-to-app-wizard</code>: WIP method for converting a readable agent skill into a testable app action.</li>
           <li><code>manuscript-overhaul-plan</code>: Evidence-backed manuscript or story dossier overhaul planning, now represented by app action variants.</li>
+          <li><code>grumpy-gus</code> and <code>mystery-prose-validator</code>: Editorial skill patterns now represented by app-ready action wrappers.</li>
           <li><code>express-svelte-monorepo</code>: Scaffold pattern for the current full-stack shape.</li>
           <li><code>sse-streaming</code>: Reusable SSE event and streaming patterns for Express and browser clients.</li>
           <li><code>svelte5-rune-store</code>: Shared Svelte 5 state pattern using rune-backed getter/setter functions.</li>
@@ -1153,7 +1159,7 @@
           <li>Chunking or summarization for whole-manuscript runs.</li>
           <li>Prompt edit diff/revert UI.</li>
           <li><code>project.yaml</code> vs <code>actions.yaml</code>.</li>
-          <li>Which real skills to wrap next.</li>
+          <li>Which skill family should be wrapped after the V1.1 release candidate.</li>
           <li>How polished the UI needs to become before this is useful beyond internal testing.</li>
         </ul>
       </details>
