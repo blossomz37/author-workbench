@@ -4,7 +4,7 @@
   Description: Interactive V1 completion board for Author Workbench.
   Version: 0.2.0
   Created: 2026-05-22
-  Modified: 2026-05-23
+  Modified: 2026-05-24
   Author: Carlo / Codex
 -->
 <html lang="en">
@@ -549,7 +549,7 @@
         <p class="eyebrow">Author Workbench V1 status board</p>
         <h1 id="page-title">What is done, what is next</h1>
         <p class="subtitle">
-          A working board for the V1 compatibility proof and follow-on hardening: local files, prompt assembly, provider streaming, author review, saved output, active cancel, paused-run recovery, multi-phase actions, and regression evidence.
+          A working board for the V1 compatibility proof and follow-on hardening: local files, prompt assembly, provider streaming, author review, saved output, active cancel, paused-run recovery, multi-phase actions, Aurora Prism UI implementation, and regression evidence.
         </p>
       </div>
 
@@ -584,7 +584,7 @@
         </div>
         <div class="status-summary" aria-label="Work item summary">
           <div class="summary-stat done">
-            <strong>13</strong>
+            <strong>14</strong>
             <span>done</span>
           </div>
           <div class="summary-stat partial">
@@ -597,7 +597,7 @@
           </div>
         </div>
         <p class="muted" style="margin: 18px 0 0; font-size: 0.82rem;">
-          Last updated 2026-05-23. Evidence: <code>smoke:review</code>, <code>smoke:reliability</code>, <code>smoke:regressions</code>, <code>smoke:resume</code>, <code>smoke:multi-phase</code>, and <code>smoke:overhaul-ui</code>.
+          Last updated 2026-05-24. Evidence: <code>smoke:review</code>, <code>smoke:reliability</code>, <code>smoke:regressions</code>, <code>smoke:resume</code>, <code>smoke:multi-phase</code>, <code>smoke:overhaul-ui</code>, UI workspace checks, and Playwright screenshots for the Aurora Prism M2 route pass.
         </p>
       </aside>
     </section>
@@ -679,6 +679,15 @@
             <div class="card-meta"><span class="pill">overhaul</span><span class="pill">contracts</span></div>
           </article>
 
+          <article class="work-card" data-status="done" data-tags="aurora prism m2 route pass design shell svelte mobile desktop">
+            <div class="card-head">
+              <strong>Aurora Prism M2 route pass</strong>
+              <span class="badge done">Done</span>
+            </div>
+            <p>The live Svelte routes now use the Aurora Prism visual language across project opening, dashboard, runner, live run, review/results, and settings surfaces.</p>
+            <div class="card-meta"><span class="pill">M2</span><span class="pill">design</span><span class="pill">Svelte</span></div>
+          </article>
+
           <article class="work-card" data-status="done" data-tags="human review approve reject alternate decision">
             <div class="card-head">
               <strong>Review decisions</strong>
@@ -753,8 +762,8 @@
           </div>
           <div class="action">
             <div>
-              <strong>Wrap the next app-ready skill.</strong>
-              <p class="muted">Use the proven action metadata standard as V1.1/backlog work, not a V1 blocker.</p>
+              <strong>Choose the next app-ready skills.</strong>
+              <p class="muted">M2 design is now past the route-pass checkpoint, so the next major V1.1 product decision is which 2+ skills should become first-class actions.</p>
             </div>
           </div>
         </div>
@@ -777,6 +786,7 @@
           <label class="check-row"><input type="checkbox" checked data-id="failure-regressions"><span>Missing-file and provider-error regressions are covered by a repeatable smoke test.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="multi-phase-runner"><span>Multi-phase actions, review gates, and checkpoint continuation are covered by a repeatable smoke test.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="overhaul-ui"><span>Overhaul workflow controls and prompt editing are covered by a Playwright smoke test.</span></label>
+          <label class="check-row"><input type="checkbox" checked data-id="aurora-m2"><span>Aurora Prism M2 route styling has desktop, mobile, and reduced-motion screenshot evidence.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="session-closeout"><span>The repo has a project-specific end-session workflow.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="readme-proof"><span>The README explains how to run the proof and what V1 does not claim.</span></label>
           <label class="check-row"><input type="checkbox" checked data-id="honest-scope"><span>The app does not pretend to be more complete than it is.</span></label>
@@ -797,6 +807,10 @@
           <div class="timeline-item">
             <strong>V1.1 workflow proof is now visible</strong>
             <span class="muted">The app can run multi-phase skill-backed actions with input variants, pass selection, checkpointing, and safe prompt editing.</span>
+          </div>
+          <div class="timeline-item">
+            <strong>V1.1 M2 design pass landed</strong>
+            <span class="muted">Aurora Prism now shapes the live Svelte routes, including stage chips, panels, run output, timeline evidence, review, and mobile stacking.</span>
           </div>
         </div>
       </section>

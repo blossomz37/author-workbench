@@ -4,7 +4,7 @@
   Description: Friendly HTML snapshot for collaborators comparing parallel novel-builder experiments.
   Version: 0.2.0
   Created: 2026-05-22
-  Modified: 2026-05-23
+  Modified: 2026-05-24
   Author: Carlo / Codex
 -->
 <html lang="en">
@@ -796,7 +796,7 @@
         <p class="eyebrow">Project check-in for parallel builders</p>
         <h1 id="snapshot-title">Author Workbench</h1>
         <p class="subtitle">
-          A local-first author workflow app for drafting, reviewing, auditing, and running multi-phase author workflows with visible prompts, checkpoints, and saved local evidence.
+          A local-first author workflow app for drafting, reviewing, auditing, and running multi-phase author workflows with visible prompts, checkpoints, saved local evidence, and an Aurora Prism author-workbench UI.
         </p>
       </div>
 
@@ -818,7 +818,7 @@
             <div class="mini-lines"><span></span><span></span><span></span></div>
           </div>
           <div class="mini-card wide">
-            <span class="snapshot-date">Snapshot: 2026-05-23</span>
+            <span class="snapshot-date">Snapshot: 2026-05-24</span>
             <div class="flow" aria-label="Draft review audit flow">
               <span>Prompt</span>
               <b>to</b>
@@ -851,7 +851,7 @@
           This public snapshot is intentionally small. It is a shareable check-in for friends comparing parallel approaches, not the full working source repo.
         </p>
         <p class="muted" style="margin-top: 14px;">
-          Current status: V1 compatibility proof plus V1.1 workflow hardening. The app can load files, assemble prompts, stream output, pause for review, recover paused runs, cancel active runs, resume through multi-phase workflows, stop at checkpoints, and save evidence locally.
+          Current status: V1 compatibility proof plus V1.1 reliability, workflow, and design hardening. The app can load files, assemble prompts, stream output, pause for review, recover paused runs, cancel active runs, resume through multi-phase workflows, stop at checkpoints, save evidence locally, and present the core routes in the Aurora Prism M2 visual system.
         </p>
       </details>
 
@@ -908,6 +908,7 @@
           <li><span class="check">OK</span><span>Multi-phase actions can run ordered phases, pause at review gates, and resume with approved phase output.</span></li>
           <li><span class="check">OK</span><span>Run-to-phase can stop at a checkpoint and continue later without treating the checkpoint as an approval gate.</span></li>
           <li><span class="check">OK</span><span>Project prompt templates can be edited through the UI with path checks and timestamped backups.</span></li>
+          <li><span class="check">OK</span><span>The Aurora Prism M2 route pass is implemented across project opening, dashboard, runner, live run, review/results, and settings screens.</span></li>
           <li><span class="check">OK</span><span>Mock mode can test the workflow without an API key.</span></li>
         </ul>
       </details>
@@ -1044,7 +1045,7 @@
           <span class="chip gold">No database in V1</span>
         </div>
         <p class="muted" style="margin-top: 14px;">
-          Express runs on <code>localhost:3777</code>. Vite runs on <code>localhost:5173</code> and proxies <code>/api/*</code> to the server. Project context comes from <code>project.yaml</code>, Markdown files, Handlebars templates, and explicit action workflow contracts.
+          Express runs on <code>localhost:4777</code>. Vite runs on <code>localhost:6173</code> and proxies <code>/api/*</code> to the server. Project context comes from <code>project.yaml</code>, Markdown files, Handlebars templates, and explicit action workflow contracts.
         </p>
       </details>
 
@@ -1086,6 +1087,10 @@
           <div class="timeline-item">
             <strong>Visible actions map to workflow contracts</strong>
             <span class="muted">Each overhaul action declares its templates, phases, review behavior, checkpoint support, and prompt editing surface.</span>
+          </div>
+          <div class="timeline-item">
+            <strong>Aurora Prism M2 route pass landed</strong>
+            <span class="muted">The live app shell and core routes now share stage-reactive panels, run output, timeline evidence, review, and mobile layout primitives.</span>
           </div>
         </div>
       </details>
@@ -1136,7 +1141,7 @@
 npm run dev:server
 npm run dev:ui</code></pre>
         <p class="muted" style="margin-top: 12px;">
-          Then open <code>http://localhost:5173/</code>. Mock mode works without provider credentials. OpenAI mode requires the server-side provider credential to be configured.
+          Then open <code>http://localhost:6173/</code>. Mock mode works without provider credentials. OpenAI mode requires the server-side provider credential to be configured.
         </p>
       </details>
 
