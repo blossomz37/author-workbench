@@ -72,6 +72,28 @@
       padding: 28px 0 44px;
     }
 
+    .home-link {
+      align-items: center;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      color: var(--ink);
+      display: inline-flex;
+      font-size: 0.92rem;
+      font-weight: 800;
+      gap: 8px;
+      margin-bottom: 18px;
+      min-height: 38px;
+      padding: 0 13px;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(63, 45, 31, 0.08);
+    }
+
+    .home-link:hover {
+      border-color: rgba(59, 110, 168, 0.42);
+      color: var(--blue);
+    }
+
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 1.1fr) minmax(290px, 0.9fr);
@@ -791,6 +813,7 @@
 </head>
 <body>
   <main class="page">
+    <a class="home-link" href="https://blossomz37.github.io/author-workbench/">Back to Home</a>
     <section class="hero" aria-labelledby="snapshot-title">
       <div class="hero-copy">
         <p class="eyebrow">Project check-in for parallel builders</p>
